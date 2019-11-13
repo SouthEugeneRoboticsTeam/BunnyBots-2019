@@ -26,13 +26,17 @@ dependencies {
 
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.1"
     compile "com.kauailabs.navx.frc:navx-java:3.1.344"
+    compile "com.ctre.phoenix:api-java:5.14.1"
     compile "org.jetbrains.kotlin:kotlin-reflect:1.3.50"
 
     compile wpi.deps.wpilib()
     compile wpi.deps.vendor.java()
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
-    compile 'com.github.SouthEugeneRoboticsTeam:sertain:master-SNAPSHOT'
+//    compile 'com.github.SouthEugeneRoboticsTeam:sertain:motor-debugging-SNAPSHOT'
+    compile fileTree('C:\\Users\\Aidan\\IdeaProjects\\sertain\\core\\build\\libs') {
+        include '*.jar'
+    }
 }
 
 compileKotlin {
