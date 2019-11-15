@@ -10,5 +10,3 @@ class Drivetrain : Subsystem("Drivetrain") {
     val leftFront = MotorController(org.sert2521.bunnybots2019.leftFront)
     val leftBack = MotorController(org.sert2521.bunnybots2019.leftBack)
 }
-
-//val ds =  DriverStation.getInstance().
