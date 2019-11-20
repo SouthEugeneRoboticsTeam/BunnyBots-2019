@@ -32,11 +32,11 @@ suspend fun Robot.driveTrain(speed: Double) = doTask {
     action {
         val job = onTick {
 
-            val throttleScalar = scale.remap(0.0..1.0, 0.5..1.0)
-            val turnScalar = scale.remap(0.0..1.0, 0.4..1.0)
+            //val throttleScalar = scale.remap(0.0..1.0, 0.5..1.0)
+            //val turnScalar = scale.remap(0.0..1.0, 0.4..1.0)
 
-            val scaledThrottle = throttle * throttleScalar * -driveSpeedScalar
-            val scaledTurn = turn * turnScalar * driveSpeedScalar
+            val scaledThrottle = throttle// * throttleScalar * -driveSpeedScalar
+            val scaledTurn = turn// * turnScalar * driveSpeedScalar
 
             drivetrain.drive(scaledThrottle, scaledTurn)
         }
