@@ -26,10 +26,10 @@ object TubIntake : Subsystem("TubIntake") {
             MotorControllers.TUBINTAKE_WHEEL_LEFT,
             MotorControllers.TUBINTAKE_WHEEL_RIGHT
     ) {
-       inverted = false
+        inverted = false
         eachFollower {
-           inverted = true
-       }
+            inverted = true
+        }
     }
 
     var intakeRunning = false
