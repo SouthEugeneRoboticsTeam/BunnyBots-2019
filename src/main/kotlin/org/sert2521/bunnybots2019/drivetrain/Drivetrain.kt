@@ -16,7 +16,9 @@ class Drivetrain : Subsystem("Drivetrain") {
     private val left = MotorController(leftFront, leftBack)
 
     init{
-
+        default {
+            Robot.driveTrain()
+        }
     }
 
     fun arcadeDrive(speed: Double, turn: Double){

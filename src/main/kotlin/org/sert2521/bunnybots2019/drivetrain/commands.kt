@@ -27,7 +27,7 @@ private val throttle get() = primaryJoystick.y
 private val turn get() = primaryJoystick.x
 private val scale get() = 1.0
 
-suspend fun Robot.driveTrain(speed: Double) = doTask {
+suspend fun Robot.driveTrain() = doTask {
     val drivetrain = use<Drivetrain>()
     action {
         val job = onTick {
