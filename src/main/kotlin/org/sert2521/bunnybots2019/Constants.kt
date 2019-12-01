@@ -10,3 +10,8 @@ object MotorControllers {
     val TUBINTAKE_ARM_A = TalonId(999999)
     val TUBINTAKE_ARM_B = TalonId(999999)
 }
+
+object Sensors {
+    val TUBINTAKE_LIMIT_TOP = 9999
+    val TUBINTAKE_LIMIT_BOTTOM = 9999
+}
