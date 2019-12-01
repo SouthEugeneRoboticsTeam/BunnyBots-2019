@@ -40,9 +40,9 @@ class Drivetrain : Subsystem("Drive Train") {
         val offset = (right.position - left.position) / 78.74
 
         if (offset !in -error..error) {
-            tankDrive(speed - (offset / 2), speed + (offset / 2))
+            arcadeDrive(speed, -offset)
         } else {
-            tankDrive(speed, speed)
+            arcadeDrive(speed, speed)
         }
     }
 }
