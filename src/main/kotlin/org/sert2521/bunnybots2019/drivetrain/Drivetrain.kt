@@ -42,7 +42,7 @@ class Drivetrain : Subsystem("Drive Train") {
         if (offset !in -error..error) {
             arcadeDrive(speed, -offset)
         } else {
-            arcadeDrive(speed, speed)
+            arcadeDrive(speed, 0.0)
         }
     }
 }
