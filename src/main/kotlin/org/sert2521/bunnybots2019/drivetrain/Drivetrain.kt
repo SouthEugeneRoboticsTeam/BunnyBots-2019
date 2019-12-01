@@ -11,7 +11,7 @@ import org.sert2521.bunnybots2019.rightBack
 import org.sert2521.sertain.Robot
 import org.sert2521.bunnybots2019.drivetrain.driveTrain
 
-class Drivetrain : Subsystem("Drivetrain") {
+class Drivetrain : Subsystem("Drive Train") {
     private val right = MotorController(rightFront, rightBack)
     private val left = MotorController(leftFront, leftBack)
 
