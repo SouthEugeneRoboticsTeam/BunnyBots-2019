@@ -26,17 +26,17 @@ class Drivetrain : Subsystem("Drive Train") {
 
 
 
-    fun arcadeDrive(speed: Double, turn: Double){
+    fun arcadeDrive(speed: Double, turn: Double) {
         right.setPercentOutput(speed - turn)
         left.setPercentOutput(speed + turn)
     }
 
-    fun tankDrive(rightSpeed: Double, leftSpeed: Double){
+    fun tankDrive(rightSpeed: Double, leftSpeed: Double) {
         right.setPercentOutput(rightSpeed)
         left.setPercentOutput(leftSpeed)
     }
 
-    fun straightDrive(error: Double, speed: Double){
+    fun straightDrive(error: Double, speed: Double) {
         val offset = (right.position - left.position) / 78.74
 
         if (offset !in -error..error) {
