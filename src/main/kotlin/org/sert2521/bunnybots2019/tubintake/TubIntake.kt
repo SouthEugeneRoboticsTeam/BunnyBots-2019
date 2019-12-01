@@ -17,7 +17,11 @@ object TubIntake : Subsystem("TubIntake") {
         encoder = Encoder(ENCODER_TICKS)
 
         maxOutputRange = -0.75..0.75
+
+        openLoopRamp = 0.25
     }
+
+    val position get() = armDrive.position
 
     private val wheelDrive = MotorController(
             MotorControllers.TUBINTAKE_WHEEL_LEFT,
