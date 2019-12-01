@@ -16,10 +16,15 @@ class Drivetrain : Subsystem("Drive Train") {
     private val left = MotorController(leftFront, leftBack)
 
     init{
+        right.position = 0
+        left.position = 0
+
         default {
             Robot.driveTrain()
         }
     }
+
+
 
     fun arcadeDrive(speed: Double, turn: Double){
         right.setPercentOutput(speed - turn)
@@ -29,5 +34,15 @@ class Drivetrain : Subsystem("Drive Train") {
     fun tankDrive(rightSpeed: Double, leftSpeed: Double){
         right.setPercentOutput(rightSpeed)
         left.setPercentOutput(leftSpeed)
+    }
+
+    fun straightDrive(error: Double, speed: Double){
+        val offset = (right.position - left.position) / 78.74
+
+        if (offset !in -error..error) {
+            tankDrive(speed - (offset / 2), speed + (offset / 2))
+        } else {
+            tankDrive(speed, speed)
+        }
     }
 }
