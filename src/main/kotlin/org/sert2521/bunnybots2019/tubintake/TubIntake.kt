@@ -8,15 +8,12 @@ import org.sert2521.sertain.subsystems.Subsystem
 
 object TubIntake : Subsystem("TubIntake") {
 
-    // hmm...
-    private val BRAKE = NeutralMode.BREAK
-
     private val armDrive = MotorController(
             MotorControllers.TUBINTAKE_ARM_A,
             MotorControllers.TUBINTAKE_ARM_B
     ) {
         inverted = false
-        neutralMode = BRAKE
+        brakeMode = true
         encoder = Encoder(ENCODER_TICKS)
 
         maxOutputRange = -0.75..0.75

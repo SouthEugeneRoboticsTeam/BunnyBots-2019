@@ -8,7 +8,7 @@ fun main() = robot {
     add<TubIntake>()
 }
 
-suspend fun Robot.tunIntakeControl() = doTask {
+suspend fun Robot.tubIntakeControl() = doTask {
     val intake = use<TubIntake>()
     action {
 
