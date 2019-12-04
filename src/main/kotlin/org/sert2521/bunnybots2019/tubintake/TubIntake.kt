@@ -31,8 +31,7 @@ object TubIntake : Subsystem("TubIntake") {
             println("tub intake arm at top limit")
         }
     }
-    private val bottomLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_BOTTOM) {
-    }
+    private val bottomLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_BOTTOM)
 
     val atTop get() = topLimitSwitch.get()
     val atBottom get() = bottomLimitSwitch.get()
