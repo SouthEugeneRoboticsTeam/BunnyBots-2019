@@ -22,7 +22,6 @@ fun Number.remap(fromRange: ClosedRange<Double>, toRange: ClosedRange<Double>) =
 
 private val throttle get() = primaryJoystick.y
 private val turn get() = primaryJoystick.x
-private val scale get() = 1.0
 
 suspend fun driveTrain() = doTask {
     val drivetrain = use<Drivetrain>()
