@@ -1,18 +1,11 @@
 package org.sert2521.bunnybots2019.drivetrain
 
 import org.sert2521.bunnybots2019.oi.primaryJoystick
+import org.sert2521.bunnybots2019.utils.deadband
 import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.subsystems.doTask
 import org.sert2521.sertain.subsystems.use
 import kotlin.math.sign
-
-fun Double.deadband(range: Double): Double{
-    return if(this < range && this > -range) {
-        0.0
-    }else{
-        this
-    }
-}
 
 private val throttle get() = primaryJoystick.y
 private val turn get() = primaryJoystick.x
