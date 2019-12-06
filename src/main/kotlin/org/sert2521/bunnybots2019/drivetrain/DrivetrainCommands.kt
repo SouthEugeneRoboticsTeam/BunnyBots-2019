@@ -17,7 +17,7 @@ fun Double.deadband(range: Double): Double{
 private val throttle get() = primaryJoystick.y
 private val turn get() = primaryJoystick.x
 
-suspend fun driveTrain() = doTask {
+suspend fun controlDrivetrain() = doTask {
     val drivetrain = use<Drivetrain>()
     action {
         onTick {

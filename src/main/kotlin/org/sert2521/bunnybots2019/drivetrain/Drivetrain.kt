@@ -7,7 +7,7 @@ import org.sert2521.bunnybots2019.rightFront
 import org.sert2521.sertain.motors.MotorController
 import org.sert2521.sertain.subsystems.Subsystem
 
-class Drivetrain : Subsystem("Drivetrain", ::driveTrain) {
+class Drivetrain : Subsystem("Drivetrain", ::controlDrivetrain) {
     private val right = MotorController(rightFront, rightBack){
         inverted = true
         brakeMode = true
