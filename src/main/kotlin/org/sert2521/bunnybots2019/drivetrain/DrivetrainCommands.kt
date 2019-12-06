@@ -14,12 +14,6 @@ fun Double.deadband(range: Double): Double{
     }
 }
 
-fun ClosedRange<Double>.intersects(other: ClosedRange<Double>): Boolean =
-        start in other || endInclusive in other
-
-fun Number.remap(fromRange: ClosedRange<Double>, toRange: ClosedRange<Double>) =
-        (this.toDouble() - fromRange.start) * (toRange.endInclusive - toRange.start) / (fromRange.endInclusive - fromRange.start) + toRange.start
-
 private val throttle get() = primaryJoystick.y
 private val turn get() = primaryJoystick.x
 
