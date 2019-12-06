@@ -1,0 +1,7 @@
+package org.sert2521.bunnybots2019.utils
+
+fun ClosedRange<Double>.intersects(other: ClosedRange<Double>): Boolean =
+        start in other || endInclusive in other
+
+fun Number.remap(fromRange: ClosedRange<Double>, toRange: ClosedRange<Double>) =
+        (this.toDouble() - fromRange.start) * (toRange.endInclusive - toRange.start) / (fromRange.endInclusive - fromRange.start) + toRange.start
