@@ -7,10 +7,10 @@ import kotlinx.coroutines.cancelAndJoin
 import org.sert2521.bunnybots2019.Operator
 import org.sert2521.bunnybots2019.drivetrain.Drivetrain
 import org.sert2521.sertain.Robot
-import org.sert2521.sertain.Robot.use
 import org.sert2521.sertain.coroutines.delayUntil
 import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.subsystems.doTask
+import org.sert2521.sertain.subsystems.use
 import kotlin.math.sign
 
 val driveSpeedScalar get() = Preferences.getInstance().getDouble("drive_speed_scalar", 1.0)
