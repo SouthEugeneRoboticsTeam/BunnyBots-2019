@@ -2,12 +2,7 @@ package org.sert2521.bunnybots2019.drivetrain
 
 import edu.wpi.first.wpilibj.Preferences
 import edu.wpi.first.wpilibj.Joystick
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
-import kotlinx.coroutines.cancelAndJoin
 import org.sert2521.bunnybots2019.Operator
-import org.sert2521.bunnybots2019.drivetrain.Drivetrain
-import org.sert2521.sertain.Robot
-import org.sert2521.sertain.coroutines.delayUntil
 import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.subsystems.doTask
 import org.sert2521.sertain.subsystems.use

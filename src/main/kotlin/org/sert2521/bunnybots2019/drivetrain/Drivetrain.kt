@@ -1,13 +1,9 @@
 package org.sert2521.bunnybots2019.drivetrain
 
-import kotlinx.coroutines.CoroutineScope
 import org.sert2521.bunnybots2019.leftBack
 import org.sert2521.bunnybots2019.leftFront
 import org.sert2521.bunnybots2019.rightBack
 import org.sert2521.bunnybots2019.rightFront
-import org.sert2521.sertain.Robot
-import org.sert2521.sertain.events.True
-import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.motors.MotorController
 import org.sert2521.sertain.subsystems.Subsystem
 
