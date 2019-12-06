@@ -6,8 +6,6 @@ import org.sert2521.sertain.subsystems.doTask
 import org.sert2521.sertain.subsystems.use
 import kotlin.math.sign
 
-typealias DoubleRange = ClosedFloatingPointRange<Double>
-
 fun Double.deadband(range: Double): Double{
     return if(this < range && this > -range) {
         0.0
@@ -16,12 +14,11 @@ fun Double.deadband(range: Double): Double{
     }
 }
 
-fun DoubleRange.intersects(other: DoubleRange): Boolean =
+fun ClosedRange<Double>.intersects(other: ClosedRange<Double>): Boolean =
         start in other || endInclusive in other
 
-fun Number.remap(fromRange: DoubleRange, toRange: DoubleRange) =
+fun Number.remap(fromRange: ClosedRange<Double>, toRange: ClosedRange<Double>) =
         (this.toDouble() - fromRange.start) * (toRange.endInclusive - toRange.start) / (fromRange.endInclusive - fromRange.start) + toRange.start
-
 
 private val throttle get() = primaryJoystick.y
 private val turn get() = primaryJoystick.x
