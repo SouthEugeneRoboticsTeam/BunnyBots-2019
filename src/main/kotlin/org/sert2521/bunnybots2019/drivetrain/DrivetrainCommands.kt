@@ -27,13 +27,9 @@ private val scale get() = 1.0
 suspend fun driveTrain() = doTask {
     val drivetrain = use<Drivetrain>()
     action {
-        val job = onTick {
-
-            throttle.deadband(0.05)
-            turn.deadband(0.05)
-
-            val scaledThrottle = -throttle.sign * (throttle * throttle)
-            val scaledTurn = turn.sign * (turn  * turn)
+        onTick {
+            val scaledThrottle = (-throttle.sign * (throttle * throttle)).deadband(.05)
+            val scaledTurn = (turn.sign * (turn * turn)).deadband(.05)
             drivetrain.arcadeDrive(scaledThrottle, scaledTurn)
         }
     }
