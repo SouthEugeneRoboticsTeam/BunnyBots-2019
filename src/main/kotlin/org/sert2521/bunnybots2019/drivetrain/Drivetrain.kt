@@ -23,10 +23,6 @@ class Drivetrain : Subsystem("Drive Train") {
     init {
         right.position = 0
         left.position = 0
-
-        default {
-            Robot.driveTrain()
-        }
     }
 
 

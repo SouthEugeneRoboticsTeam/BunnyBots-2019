@@ -7,9 +7,11 @@ import kotlinx.coroutines.cancelAndJoin
 import org.sert2521.bunnybots2019.Operator
 import org.sert2521.bunnybots2019.drivetrain.Drivetrain
 import org.sert2521.sertain.Robot
+import org.sert2521.sertain.Robot.use
 import org.sert2521.sertain.coroutines.delayUntil
 import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.subsystems.doTask
+import kotlin.math.sign
 
 val driveSpeedScalar get() = Preferences.getInstance().getDouble("drive_speed_scalar", 1.0)
 
@@ -35,7 +37,7 @@ private val throttle get() = primaryJoystick.y
 private val turn get() = primaryJoystick.x
 private val scale get() = 1.0
 
-suspend fun Robot.driveTrain() = doTask {
+suspend fun driveTrain() = doTask {
     val drivetrain = use<Drivetrain>()
     action {
         val job = onTick {
@@ -43,8 +45,8 @@ suspend fun Robot.driveTrain() = doTask {
             throttle.deadband(0.05)
             turn.deadband(0.05)
 
-            val scaledThrottle = (-throttle * throttle)
-            val scaledTurn = (turn * turn)
+            val scaledThrottle = -throttle.sign * (throttle * throttle)
+            val scaledTurn = turn.sign * (turn  * turn)
             drivetrain.arcadeDrive(scaledThrottle, scaledTurn)
         }
     }
