@@ -3,7 +3,6 @@ package org.sert2521.bunnybots2019.tubintake
 import org.sert2521.bunnybots2019.oi.Controls
 import org.sert2521.sertain.Robot
 import org.sert2521.sertain.events.onTick
-import org.sert2521.sertain.robot
 import org.sert2521.sertain.subsystems.doTask
 
 suspend fun Robot.teleopIntakeControl() = doTask {
@@ -18,5 +17,7 @@ suspend fun Robot.teleopIntakeControl() = doTask {
                 intake.stopSpin()
             }
          }
+
+
     }
 }
