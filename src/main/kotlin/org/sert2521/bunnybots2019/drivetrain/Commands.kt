@@ -1,9 +1,12 @@
 package org.sert2521.bunnybots2019.drivetrain
 
+import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.Preferences
 import edu.wpi.first.wpilibj.Joystick
 import org.sert2521.bunnybots2019.Operator
 import org.sert2521.sertain.events.onTick
+import org.sert2521.sertain.input.stickAxis
+import org.sert2521.sertain.input.stickButton
 import org.sert2521.sertain.subsystems.doTask
 import org.sert2521.sertain.subsystems.use
 import kotlin.math.sign
@@ -36,12 +39,11 @@ suspend fun driveTrain() = doTask {
     val drivetrain = use<Drivetrain>()
     action {
         val job = onTick {
-
-            throttle.deadband(0.05)
+            throttle
             turn.deadband(0.05)
 
-            val scaledThrottle = -throttle.sign * (throttle * throttle)
-            val scaledTurn = turn.sign * (turn  * turn)
+            val scaledThrottle = (-throttle.sign * (throttle * throttle)).deadband(.05)
+            val scaledTurn = (turn.sign * (turn * turn)).deadband(.05)
             drivetrain.arcadeDrive(scaledThrottle, scaledTurn)
         }
     }
