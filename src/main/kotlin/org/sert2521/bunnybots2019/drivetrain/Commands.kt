@@ -43,7 +43,7 @@ suspend fun Robot.driveTrain() = doTask {
             throttle.deadband(0.05)
             turn.deadband(0.05)
 
-            val scaledThrottle = -(throttle * throttle)
+            val scaledThrottle = (-throttle * throttle)
             val scaledTurn = (turn * turn)
             drivetrain.arcadeDrive(scaledThrottle, scaledTurn)
         }
