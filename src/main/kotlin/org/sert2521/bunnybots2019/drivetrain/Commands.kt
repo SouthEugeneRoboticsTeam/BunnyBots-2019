@@ -15,6 +15,14 @@ val driveSpeedScalar get() = Preferences.getInstance().getDouble("drive_speed_sc
 
 typealias DoubleRange = ClosedFloatingPointRange<Double>
 
+fun Double.deadband(range: Double): Double{
+    return if(this < range && this > -range) {
+        0.0
+    }else{
+        this
+    }
+}
+
 fun DoubleRange.intersects(other: DoubleRange): Boolean =
         start in other || endInclusive in other
 
@@ -32,13 +40,12 @@ suspend fun Robot.driveTrain() = doTask {
     action {
         val job = onTick {
 
-            //val throttleScalar = scale.remap(0.0..1.0, 0.5..1.0)
-            //val turnScalar = scale.remap(0.0..1.0, 0.4..1.0)
+            throttle.deadband(0.05)
+            turn.deadband(0.05)
 
-            val scaledThrottle = throttle// * throttleScalar * -driveSpeedScalar
-            val scaledTurn = turn// * turnScalar * driveSpeedScalar
-
-            //drivetrain.arcadeDrive(scaledThrottle, scaledTurn)
+            val scaledThrottle = -(throttle * throttle)
+            val scaledTurn = (turn * turn)
+            drivetrain.arcadeDrive(scaledThrottle, scaledTurn)
         }
     }
 }
