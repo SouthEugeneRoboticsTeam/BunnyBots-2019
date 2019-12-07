@@ -2,11 +2,11 @@ package org.sert2521.bunnybots2019.tubintake
 
 import org.sert2521.bunnybots2019.MotorControllers
 import org.sert2521.bunnybots2019.Sensors
+import org.sert2521.bunnybots2019.utils.timer
 import org.sert2521.sertain.Robot
 import org.sert2521.sertain.input.digitalInput
 import org.sert2521.sertain.motors.Encoder
 import org.sert2521.sertain.motors.MotorController
-import org.sert2521.sertain.motors.NeutralMode
 import org.sert2521.sertain.subsystems.Subsystem
 
 object TubIntake : Subsystem("TubIntake") {
@@ -32,12 +32,23 @@ object TubIntake : Subsystem("TubIntake") {
             println("tub intake arm at top limit")
         }
     }
-    private val bottomLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_BOTTOM) {
-    }
+    private val bottomLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_BOTTOM)
 
     val atTop get() = topLimitSwitch.get()
     val atBottom get() = bottomLimitSwitch.get()
 
+    suspend fun runArmToPosition(goal: Int) {
+        var motorTargetPosition = 0;
+        if(goal === ARM_UP) {
+            motorTargetPosition = ARM_UP_TICKS
+        } else if(goal == ARM_DOWN) {
+            motorTargetPosition = ARM_DOWN_TICKS
+        } else return;
+
+        timer(20, 5000) {
+            //position control stuff
+        }
+    }
 
     private val wheelDrive = MotorController(
             MotorControllers.TUBINTAKE_WHEEL_LEFT,

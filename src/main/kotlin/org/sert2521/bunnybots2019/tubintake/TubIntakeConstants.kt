@@ -5,3 +5,9 @@ const val INTAKE_SPEED = .3
 const val OUTTAKE_SPEED = .5
 
 const val ENCODER_TICKS = 2048
+
+const val ARM_UP = 0
+const val ARM_DOWN = 1
+
+const val ARM_UP_TICKS = 0
+const val ARM_DOWN_TICKS = 10000
