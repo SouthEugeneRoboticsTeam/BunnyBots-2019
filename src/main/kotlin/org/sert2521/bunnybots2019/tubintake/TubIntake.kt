@@ -3,7 +3,7 @@ package org.sert2521.bunnybots2019.tubintake
 import org.sert2521.bunnybots2019.MotorControllers
 import org.sert2521.bunnybots2019.Sensors
 import org.sert2521.bunnybots2019.utils.timer
-import org.sert2521.sertain.Robot
+import org.sert2521.sertain.coroutines.RobotScope
 import org.sert2521.sertain.input.digitalInput
 import org.sert2521.sertain.motors.Encoder
 import org.sert2521.sertain.motors.MotorController
@@ -22,31 +22,41 @@ object TubIntake : Subsystem("TubIntake") {
         maxOutputRange = -0.75..0.75
 
         openLoopRamp = 0.25
+
+        pidf {
+            kp = ARM_KP
+            ki = ARM_KI
+            kd = ARM_KD
+        }
     }
 
     val position get() = armDrive.position
 
     private val topLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_TOP) {
-        Robot.whenFalse {
+        RobotScope.whenFalse {
             armDrive.position = 0
             println("tub intake arm at top limit")
         }
     }
-    private val bottomLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_BOTTOM)
+    private val bottomLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_BOTTOM) {
+        RobotScope.whenFalse {
+            armDrive.position = ARM_DOWN_TICKS
+        }
+    }
 
     val atTop get() = topLimitSwitch.get()
     val atBottom get() = bottomLimitSwitch.get()
 
-    suspend fun runArmToPosition(goal: Int) {
-        var motorTargetPosition = 0;
-        if(goal === ARM_UP) {
-            motorTargetPosition = ARM_UP_TICKS
-        } else if(goal == ARM_DOWN) {
-            motorTargetPosition = ARM_DOWN_TICKS
-        } else return;
+    suspend fun runArmToPosition(endPosition: Double) {
+        val timerPeriod: Long = 20
+        var elapsedTime: Long = 0
+        //val motionCurve = generateMotionCurve(armDrive.position, endPosition, curveDuration)
+        var targetPosition: Double = 0.0 //motionCurve.getTarget(0)
 
-        timer(20, 5000) {
-            //position control stuff
+        timer(timerPeriod, 5000) {
+            elapsedTime += timerPeriod
+            //targetPosition = motionCurve.getTarget(elapsedTime);
+            armDrive.setPosition(targetPosition)
         }
     }
 
