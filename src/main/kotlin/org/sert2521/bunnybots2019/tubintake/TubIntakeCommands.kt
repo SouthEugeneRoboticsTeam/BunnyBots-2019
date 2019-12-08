@@ -4,6 +4,7 @@ import org.sert2521.bunnybots2019.oi.Controls
 import org.sert2521.sertain.Robot
 import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.subsystems.doTask
+import org.sert2521.sertain.subsystems.use
 
 suspend fun Robot.teleopIntakeControl() = doTask {
     val intake = use<TubIntake>()
