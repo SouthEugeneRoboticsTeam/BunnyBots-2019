@@ -10,6 +10,18 @@ import org.sert2521.sertain.motors.MotorController
 import org.sert2521.sertain.subsystems.Subsystem
 
 object TubIntake : Subsystem("TubIntake") {
+    private val wheelDrive = MotorController(
+            MotorControllers.TUBINTAKE_WHEEL_LEFT,
+            MotorControllers.TUBINTAKE_WHEEL_RIGHT
+    ) {
+        inverted = false
+        eachFollower {
+            inverted = true
+        }
+    }
+
+    var intakeRunning = false
+        private set
 
     private val armDrive = MotorController(
             MotorControllers.TUBINTAKE_ARM_A,
@@ -32,46 +44,38 @@ object TubIntake : Subsystem("TubIntake") {
 
     val position get() = armDrive.position
 
+    var armRunning = false
+        private set
+
     private val topLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_TOP) {
         RobotScope.whenFalse {
-            armDrive.position = 0
+            armDrive.position = ARM_UP_TICKS as Int
             println("tub intake arm at top limit")
         }
     }
     private val bottomLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_BOTTOM) {
         RobotScope.whenFalse {
-            armDrive.position = ARM_DOWN_TICKS
+            armDrive.position = ARM_DOWN_TICKS as Int
         }
     }
 
-    val atTop get() = topLimitSwitch.get()
-    val atBottom get() = bottomLimitSwitch.get()
+    val atTop get() = !topLimitSwitch.get()
+    val atBottom get() = !bottomLimitSwitch.get()
 
     suspend fun runArmToPosition(endPosition: Double) {
+        armRunning = true
         val timerPeriod: Long = 20
         var elapsedTime: Long = 0
         //val motionCurve = generateMotionCurve(armDrive.position, endPosition, curveDuration)
         var targetPosition: Double = 0.0 //motionCurve.getTarget(0)
 
-        timer(timerPeriod, 5000) {
+        timer(timerPeriod, 2500) {
             elapsedTime += timerPeriod
             //targetPosition = motionCurve.getTarget(elapsedTime);
             armDrive.setPosition(targetPosition)
         }
+        armRunning = false
     }
-
-    private val wheelDrive = MotorController(
-            MotorControllers.TUBINTAKE_WHEEL_LEFT,
-            MotorControllers.TUBINTAKE_WHEEL_RIGHT
-    ) {
-        inverted = false
-        eachFollower {
-            inverted = true
-        }
-    }
-
-    var intakeRunning = false
-        private set
 
     fun spinIntake() {
         wheelDrive.setPercentOutput(INTAKE_SPEED)
