@@ -19,14 +19,13 @@ suspend fun Robot.teleopIntakeControl() = doTask {
                 intake.stopSpin()
              }
 
-             if(false/*Controls.ArmUpButton == true && intake.ArmRunning == false*/) {
+             if(Controls.tubintakeArmUpButton == true && intake.armRunning == false) {
                  intake.runArmToPosition(ARM_UP_TICKS)
              }
 
-             if(false/*Controls.ArmDownButton == true && intake.ArmRunning == false*/) {
+             if(Controls.tubintakeArmDownButton == true && intake.armRunning == false) {
                  intake.runArmToPosition(ARM_DOWN_TICKS)
              }
-
          }
     }
 }

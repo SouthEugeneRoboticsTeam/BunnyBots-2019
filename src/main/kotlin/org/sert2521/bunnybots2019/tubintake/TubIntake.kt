@@ -49,13 +49,14 @@ object TubIntake : Subsystem("TubIntake") {
 
     private val topLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_TOP) {
         RobotScope.whenFalse {
-            armDrive.position = ARM_UP_TICKS as Int
+            armDrive.position = ARM_UP_TICKS.toInt()
             println("tub intake arm at top limit")
         }
     }
     private val bottomLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_BOTTOM) {
         RobotScope.whenFalse {
-            armDrive.position = ARM_DOWN_TICKS as Int
+            armDrive.position = ARM_DOWN_TICKS.toInt()
+            println("tub intake arm at bottom limit")
         }
     }
 
@@ -64,12 +65,13 @@ object TubIntake : Subsystem("TubIntake") {
 
     suspend fun runArmToPosition(endPosition: Double) {
         armRunning = true
+        val curveDuration: Long = 2500
         val timerPeriod: Long = 20
         var elapsedTime: Long = 0
         //val motionCurve = generateMotionCurve(armDrive.position, endPosition, curveDuration)
         var targetPosition: Double = 0.0 //motionCurve.getTarget(0)
 
-        timer(timerPeriod, 2500) {
+        timer(timerPeriod, curveDuration) {
             elapsedTime += timerPeriod
             //targetPosition = motionCurve.getTarget(elapsedTime);
             armDrive.setPosition(targetPosition)

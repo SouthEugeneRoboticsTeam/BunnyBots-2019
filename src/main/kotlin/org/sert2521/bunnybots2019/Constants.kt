@@ -3,6 +3,7 @@ package org.sert2521.bunnybots2019
 import org.sert2521.sertain.motors.TalonId
 import org.sert2521.sertain.motors.VictorId
 import edu.wpi.first.wpilibj.buttons.JoystickButton
+import org.sert2521.bunnybots2019.tubintake.TubIntake
 
 object MotorControllers {
     val TUBINTAKE_WHEEL_LEFT = TalonId(99999999)
@@ -24,4 +25,6 @@ object Operator {
 
     val TUBINTAKE_IN_BUTTON = 999
     val TUBINTAKE_OUT_BUTTON = 999
+    val TUBINTAKE_ARM_UP_BUTTON = 999
+    val TUBINTAKE_ARM_DOWN_BUTTON = 999
 }

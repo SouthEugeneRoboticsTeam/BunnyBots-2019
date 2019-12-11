@@ -9,4 +9,6 @@ object Controls {
 
     val tubintakeInButton get() = primaryJoystick.getRawButton(Operator.TUBINTAKE_IN_BUTTON)
     val tubintakeOutButton get() = primaryJoystick.getRawButton(Operator.TUBINTAKE_OUT_BUTTON)
+    val tubintakeArmUpButton get() = primaryJoystick.getRawButton(Operator.TUBINTAKE_ARM_UP_BUTTON)
+    val tubintakeArmDownButton get() = primaryJoystick.getRawButton(Operator.TUBINTAKE_ARM_DOWN_BUTTON)
 }
