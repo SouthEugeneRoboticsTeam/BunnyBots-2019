@@ -1,6 +1,6 @@
 package org.sert2521.bunnybots2019.drivetrain
 
-import org.sert2521.bunnybots2019.oi.primaryJoystick
+import edu.wpi.first.wpilibj.XboxController
 import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.subsystems.doTask
 import org.sert2521.sertain.subsystems.use
@@ -22,9 +22,10 @@ fun DoubleRange.intersects(other: DoubleRange): Boolean =
 fun Number.remap(fromRange: DoubleRange, toRange: DoubleRange) =
         (this.toDouble() - fromRange.start) * (toRange.endInclusive - toRange.start) / (fromRange.endInclusive - fromRange.start) + toRange.start
 
+val controller = XboxController(1)
 
-private val throttle get() = primaryJoystick.y
-private val turn get() = primaryJoystick.x
+private val throttle = controller.getY()
+private val turn = controller.getX()
 private val scale get() = 1.0
 
 suspend fun driveTrain() = doTask {
