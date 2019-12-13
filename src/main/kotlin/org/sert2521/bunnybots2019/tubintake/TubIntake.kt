@@ -65,10 +65,10 @@ object TubIntake : Subsystem("TubIntake") {
 
     suspend fun runArmToPosition(endPosition: Double) {
         armRunning = true
+        val initialPosition: Int = armDrive.position
         val curveDuration: Long = 2500
         val timerPeriod: Long = 20
         var elapsedTime: Long = 0
-        //val motionCurve = generateMotionCurve(armDrive.position, endPosition, curveDuration)
         var targetPosition: Double = 0.0 //motionCurve.getTarget(0)
 
         timer(timerPeriod, curveDuration) {
@@ -84,7 +84,7 @@ object TubIntake : Subsystem("TubIntake") {
         intakeRunning = true
     }
 
-    fun spinOutake() {
+    fun spinOuttake() {
         wheelDrive.setPercentOutput(-OUTTAKE_SPEED)
         intakeRunning = true
     }

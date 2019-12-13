@@ -14,7 +14,7 @@ suspend fun Robot.teleopIntakeControl() = doTask {
              if(Controls.tubintakeInButton == true) {
                 intake.spinIntake()
              } else if(Controls.tubintakeOutButton == true) {
-                intake.spinOutake()
+                intake.spinOuttake()
              } else {
                 intake.stopSpin()
              }
