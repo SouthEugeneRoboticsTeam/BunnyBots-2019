@@ -1,5 +1,6 @@
 package org.sert2521.bunnybots2019.drivetrain
 
+import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.XboxController
 import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.subsystems.doTask
@@ -24,21 +25,26 @@ fun Number.remap(fromRange: DoubleRange, toRange: DoubleRange) =
 
 val controller = XboxController(1)
 
-private val throttle = controller.getY()
-private val turn = controller.getX()
-private val scale get() = 1.0
+private val throttle get() = controller.getY(GenericHID.Hand.kLeft)
+private val turn get() = controller.getX(GenericHID.Hand.kRight)
+private val scale = 0.75
 
 suspend fun driveTrain() = doTask {
     val drivetrain = use<Drivetrain>()
+    println("I'm here")
     action {
         val job = onTick {
 
             throttle.deadband(0.05)
             turn.deadband(0.05)
 
-            val scaledThrottle = -throttle.sign * (throttle * throttle)
-            val scaledTurn = turn.sign * (turn  * turn)
+            val scaledThrottle = -throttle.sign * (throttle * throttle * scale)
+            val scaledTurn = turn.sign * (turn  * turn * scale)
             drivetrain.arcadeDrive(scaledThrottle, scaledTurn)
+            println(scaledThrottle)
+            println(scaledTurn)
+            println(turn)
+            println(throttle)
         }
     }
 }
