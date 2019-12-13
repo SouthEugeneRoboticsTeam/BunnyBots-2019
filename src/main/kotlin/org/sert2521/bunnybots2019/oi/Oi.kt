@@ -7,7 +7,7 @@ import org.sert2521.bunnybots2019.rollerintake.roll
 import org.sert2521.sertain.coroutines.watch
 
 val primaryJoystick by lazy { Joystick(PRIMARY_STICK) }
-fun CoroutineScope.joystickInputs() {
+fun CoroutineScope.getInputs() {
     { primaryJoystick.getRawButton(1) }.watch {
         whileTrue {
             roll()

@@ -8,7 +8,7 @@ import org.sert2521.sertain.motors.MotorController
 import org.sert2521.sertain.subsystems.Subsystem
 
 class Drivetrain : Subsystem("Drivetrain", ::driveTrain) {
-    private val right = MotorController(rightFront, rightBack){
+    private val right = MotorController(rightFront, rightBack) {
         inverted = true
         brakeMode = true
     }
@@ -32,21 +32,4 @@ class Drivetrain : Subsystem("Drivetrain", ::driveTrain) {
         left.setPercentOutput(leftSpeed)
     }
 
-/*    fun CoroutineScope.straightDrive(error: Double, speed: Double) {
-//        val offset = (right.position - left.position) / 78.74
-        onTick {
-            val offset = (-right.position - left.position)
-
-            println("Right: ${right.position}")
-            println("Left: ${left.position}")
-
-
-            if (offset !in 0.0..error) {
-                println(offset)
-                arcadeDrive(speed, -offset * 0.01)
-            } else {
-                arcadeDrive(speed, 0.0)
-            }
-        }
-    }*/
 }
