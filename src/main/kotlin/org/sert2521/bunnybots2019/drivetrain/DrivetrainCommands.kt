@@ -31,12 +31,11 @@ suspend fun driveTrain() = doTask {
     val drivetrain = use<Drivetrain>()
     action {
         val job = onTick {
-
             throttle.deadband(0.05)
             turn.deadband(0.05)
 
             val scaledThrottle = -throttle.sign * (throttle * throttle)
-            val scaledTurn = turn.sign * (turn  * turn)
+            val scaledTurn = turn.sign * (turn * turn)
             drivetrain.arcadeDrive(scaledThrottle, scaledTurn)
         }
     }
