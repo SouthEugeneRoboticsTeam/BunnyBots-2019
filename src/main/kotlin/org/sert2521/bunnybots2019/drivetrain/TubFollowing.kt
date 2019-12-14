@@ -15,7 +15,7 @@ suspend fun pickUpTub(turnSpeed: Double, activationNum: Double, distanceToSlow: 
         onTick {
             var table = NetworkTableInstance.getDefault().getTable("Vision")
 
-            var distance = table.getEntry("distance").getDouble(100.0)
+            var distance = table.getEntry("distance").getDouble(200.0)
             var xAngle = table.getEntry("x_angle_from_center").getDouble(0.0)
 
             when {
