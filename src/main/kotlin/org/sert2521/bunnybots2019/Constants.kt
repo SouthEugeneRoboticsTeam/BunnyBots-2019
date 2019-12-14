@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton
 import org.sert2521.bunnybots2019.tubintake.TubIntake
 
 object MotorControllers {
-    val TUBINTAKE_WHEEL_LEFT = TalonId(99999999)
-    val TUBINTAKE_WHEEL_RIGHT = TalonId(99999999)
+    val TUBINTAKE_WHEEL_LEFT = TalonId(4)
+    val TUBINTAKE_WHEEL_RIGHT = TalonId(3)
 
     val TUBINTAKE_ARM_A = TalonId(2)
     val TUBINTAKE_ARM_B = TalonId(1)
@@ -23,8 +23,8 @@ object Operator {
     val PRIMARY_STICK = 2
     val SECONDARY_STICK = 1
 
-    val TUBINTAKE_IN_BUTTON = 999
-    val TUBINTAKE_OUT_BUTTON = 999
+    val TUBINTAKE_IN_BUTTON = 8
+    val TUBINTAKE_OUT_BUTTON = 9
     val TUBINTAKE_ARM_UP_BUTTON = 2
     val TUBINTAKE_ARM_DOWN_BUTTON = 1
 }

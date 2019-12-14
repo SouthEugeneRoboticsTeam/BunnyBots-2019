@@ -11,13 +11,13 @@ suspend fun Robot.teleopIntakeControl() = doTask {
     val intake = use<TubIntake>()
     action {
          val job = onTick {
-//             if(Controls.tubintakeInButton == true) {
-//                intake.spinIntake()
-//             } else if(Controls.tubintakeOutButton == true) {
-//                intake.spinOuttake()
-//             } else {
-//                intake.stopSpin()
-//             }
+             if(Controls.tubintakeInButton == true) {
+                intake.spinIntake()
+             } else if(Controls.tubintakeOutButton == true) {
+                intake.spinOuttake()
+             } else {
+                intake.stopSpin()
+             }
 
              if(Controls.tubintakeArmUpButton == true && intake.armRunning == false) {
                  intake.runArmToPosition(ARM_UP_TICKS)

@@ -8,7 +8,9 @@ import org.sert2521.sertain.input.digitalInput
 import org.sert2521.sertain.motors.Encoder
 import org.sert2521.sertain.motors.MotorController
 import org.sert2521.sertain.subsystems.Subsystem
+import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 class TubIntake : Subsystem("TubIntake") {
     private val wheelDrive = MotorController(
@@ -31,8 +33,6 @@ class TubIntake : Subsystem("TubIntake") {
         inverted = false
         brakeMode = true
         encoder = Encoder(ENCODER_TICKS)
-
-        maxOutputRange = -0.75..0.75
 
         openLoopRamp = 0.25
 
@@ -95,19 +95,27 @@ class TubIntake : Subsystem("TubIntake") {
         val initialPosition = armDrive.sensorPosition
         val positionDifference = endPosition.coerceAtMost(ARM_DOWN_TICKS).coerceAtLeast(ARM_UP_TICKS) - initialPosition
 
-        val curveDuration: Long = 2500
+        val curveDuration: Long = 500 + 2000 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
+                .roundToLong()
         val timerPeriod: Long = 20
         var elapsedTime: Long = 0
 
         timer(timerPeriod, curveDuration) {
             elapsedTime += timerPeriod
-            val percentDone = (100.0 * (elapsedTime.toDouble() / curveDuration.toDouble()))
+            val percentDone: Int = (100.0 * (elapsedTime.toDouble() / curveDuration.toDouble()))
                     .roundToInt()
                     .coerceAtLeast(0)
                     .coerceAtMost(100)
 
-            val targetPosition = (curveCoefficients[percentDone] * positionDifference.toDouble()).roundToInt() + initialPosition
+            val targetPosition: Int = ((curveCoefficients[percentDone] * positionDifference.toDouble()) + initialPosition)
+                    .roundToInt()
+
             armDrive.setPosition(targetPosition)
+//            armDrive.setPercentOutput(-.2)
+            print("targetPosition: ")
+            println(targetPosition)
+            print("actual: ")
+            println(armDrive.sensorPosition)
         }
         armRunning = false
     }
