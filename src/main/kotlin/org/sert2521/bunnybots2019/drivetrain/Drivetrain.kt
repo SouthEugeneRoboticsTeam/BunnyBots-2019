@@ -14,8 +14,8 @@ class Drivetrain : Subsystem("Drivetrain", ::driveTrain) {
     }
 
     init {
-        right.position = 0
-        left.position = 0
+        right.sensorPosition = 0
+        left.sensorPosition = 0
     }
 
 
