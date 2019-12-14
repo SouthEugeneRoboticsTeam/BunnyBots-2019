@@ -22,6 +22,8 @@ class Drivetrain : Subsystem("Drivetrain", ::driveTrain) {
     fun arcadeDrive(speed: Double, turn: Double) {
         right.setPercentOutput(speed - turn)
         left.setPercentOutput(speed + turn)
+        println("right" + (speed - turn))
+        println("left" + (speed + turn))
     }
 
     fun tankDrive(rightSpeed: Double, leftSpeed: Double) {

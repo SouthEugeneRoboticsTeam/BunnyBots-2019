@@ -8,10 +8,9 @@ import org.sert2521.sertain.subsystems.add
 
 suspend fun main() = robot {
     add<Drivetrain>()
-
-    onTeleop {
+//    onTeleop {
         getInputs()
-    }
+//    }
 }
 
 
