@@ -8,10 +8,10 @@ import kotlin.math.sign
 
 typealias DoubleRange = ClosedFloatingPointRange<Double>
 
-fun Double.deadband(range: Double): Double{
-    return if(this < range && this > -range) {
+fun Double.deadband(range: Double): Double {
+    return if (this < range && this > -range) {
         0.0
-    }else{
+    } else {
         this
     }
 }
@@ -36,7 +36,7 @@ suspend fun driveTrain() = doTask {
             turn.deadband(0.05)
 
             val scaledThrottle = -throttle.sign * (throttle * throttle)
-            val scaledTurn = turn.sign * (turn  * turn)
+            val scaledTurn = turn.sign * (turn * turn)
             drivetrain.arcadeDrive(scaledThrottle, scaledTurn)
         }
     }
