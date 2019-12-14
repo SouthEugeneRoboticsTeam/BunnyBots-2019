@@ -40,8 +40,8 @@ class Drivetrain : Subsystem("Drivetrain", ::driveTrain) {
     }
 
     fun zeroEncoders() {
-        right.position = 0
-        left.position = 0
+        right.sensorPosition = 0
+        left.sensorPosition = 0
     }
 
 }
