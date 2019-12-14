@@ -1,13 +1,12 @@
-package org.sert2521.bunnybots2019.rollerintake
+package org.sert2521.bunnybots2019.intake
 
 import org.sert2521.bunnybots2019.MotorControllers
 import org.sert2521.sertain.motors.MotorController
 import org.sert2521.sertain.subsystems.Subsystem
 
-class RollerIntake : Subsystem("Roller") {
-    private val roller = MotorController(
-            MotorControllers.ROLLER_LEFT,
-            MotorControllers.ROLLER_RIGHT
+class Intake : Subsystem("Intake") {
+    private val intakeMotor  = MotorController(
+            MotorControllers.ROLLER_LEFT
     ) {
         eachFollower {
             inverted = false
@@ -21,12 +20,12 @@ class RollerIntake : Subsystem("Roller") {
     private var intakeRunning = false
 
     fun spinIntake() {
-        roller.setPercentOutput(ROLLER_INTAKE_SPEED)
+        intakeMotor.setPercentOutput(ROLLER_INTAKE_SPEED)
         intakeRunning = true
     }
 
     fun stopSpin() {
-        roller.disable()
+        intakeMotor.disable()
         intakeRunning = false
     }
 }
