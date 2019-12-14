@@ -1,7 +1,6 @@
 package org.sert2521.bunnybots2019.drivetrain
 
 import edu.wpi.first.networktables.NetworkTableInstance
-import java.lang.Math.pow
 import kotlin.math.pow
 
 private suspend fun pickUpTub (drivetrain: Drivetrain, turnSpeed: Double, activationNum: Double, distanceToSlow: Double){
