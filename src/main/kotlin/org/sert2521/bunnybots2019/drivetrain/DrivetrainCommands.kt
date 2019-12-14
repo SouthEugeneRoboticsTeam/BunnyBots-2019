@@ -26,9 +26,11 @@ fun Number.remap(fromRange: DoubleRange, toRange: DoubleRange) =
 private val throttle get() = primaryJoystick.y
 private val turn get() = primaryJoystick.x
 private val scale get() = 1.0
+private val running get() = primaryJoystick.getRawButtonPressed(1)
 
 suspend fun driveTrain() = doTask {
     val drivetrain = use<Drivetrain>()
+
     action {
         val job = onTick {
             throttle.deadband(0.05)
