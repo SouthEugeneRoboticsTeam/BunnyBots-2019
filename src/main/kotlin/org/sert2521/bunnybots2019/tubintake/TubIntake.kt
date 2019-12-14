@@ -10,7 +10,7 @@ import org.sert2521.sertain.motors.MotorController
 import org.sert2521.sertain.subsystems.Subsystem
 import kotlin.math.roundToInt
 
-object TubIntake : Subsystem("TubIntake") {
+class TubIntake : Subsystem("TubIntake") {
     private val wheelDrive = MotorController(
             MotorControllers.TUBINTAKE_WHEEL_LEFT,
             MotorControllers.TUBINTAKE_WHEEL_RIGHT
@@ -48,21 +48,22 @@ object TubIntake : Subsystem("TubIntake") {
     var armRunning = false
         private set
 
-    private val topLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_TOP) {
-        RobotScope.whenFalse {
-            armDrive.sensorPosition = ARM_UP_TICKS
-            println("tub intake arm at top limit")
-        }
-    }
-    private val bottomLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_BOTTOM) {
-        RobotScope.whenFalse {
-            armDrive.sensorPosition = ARM_DOWN_TICKS
-            println("tub intake arm at bottom limit")
-        }
-    }
-
-    val atTop get() = !topLimitSwitch.get()
-    val atBottom get() = !bottomLimitSwitch.get()
+//    private val topLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_TOP) {
+//        RobotScope.whenFalse {
+//            armDrive.sensorPosition = ARM_UP_TICKS
+//            println("tub intake arm at top limit")
+//        }
+//    }
+    //maybe dont uncomment this
+//    private val bottomLimitSwitch = digitalInput(Sensors.TUBINTAKE_LIMIT_BOTTOM) {
+//        RobotScope.whenFalse {
+//            armDrive.sensorPosition = ARM_DOWN_TICKS
+//            println("tub intake arm at bottom limit")
+//        }
+//    }
+//
+//    val atTop get() = !topLimitSwitch.get()
+//    val atBottom get() = !bottomLimitSwitch.get()
 
     private val curveCoefficients = arrayOf(0.0, 0.0073915413442819725, 0.008162571153159898,
             0.009013298652847826, 0.009951801866904328, 0.010986942630593181, 0.012128434984274239,
@@ -100,13 +101,12 @@ object TubIntake : Subsystem("TubIntake") {
 
         timer(timerPeriod, curveDuration) {
             elapsedTime += timerPeriod
-
             val percentDone = (100.0 * (elapsedTime.toDouble() / curveDuration.toDouble()))
                     .roundToInt()
                     .coerceAtLeast(0)
                     .coerceAtMost(100)
 
-            val targetPosition = (curveCoefficients[percentDone] * positionDifference.toDouble()).roundToInt()
+            val targetPosition = (curveCoefficients[percentDone] * positionDifference.toDouble()).roundToInt() + initialPosition
             armDrive.setPosition(targetPosition)
         }
         armRunning = false

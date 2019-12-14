@@ -12,4 +12,4 @@ const val ARM_KD = 0.0
 const val ENCODER_TICKS = 2048
 
 const val ARM_UP_TICKS = 0
-const val ARM_DOWN_TICKS = 3277 // 13107
+const val ARM_DOWN_TICKS = 3277 // 12000

@@ -9,8 +9,8 @@ object MotorControllers {
     val TUBINTAKE_WHEEL_LEFT = TalonId(99999999)
     val TUBINTAKE_WHEEL_RIGHT = TalonId(99999999)
 
-    val TUBINTAKE_ARM_A = TalonId(999999)
-    val TUBINTAKE_ARM_B = TalonId(999999)
+    val TUBINTAKE_ARM_A = TalonId(2)
+    val TUBINTAKE_ARM_B = TalonId(1)
 }
 
 object Sensors {
@@ -25,6 +25,6 @@ object Operator {
 
     val TUBINTAKE_IN_BUTTON = 999
     val TUBINTAKE_OUT_BUTTON = 999
-    val TUBINTAKE_ARM_UP_BUTTON = 999
-    val TUBINTAKE_ARM_DOWN_BUTTON = 999
+    val TUBINTAKE_ARM_UP_BUTTON = 2
+    val TUBINTAKE_ARM_DOWN_BUTTON = 1
 }
