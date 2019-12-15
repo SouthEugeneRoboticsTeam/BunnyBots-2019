@@ -7,8 +7,8 @@ import org.sert2521.sertain.robot
 import org.sert2521.sertain.subsystems.add
 
 suspend fun main() = robot {
+    add<TubIntake>()
     onTeleop {
-        add<TubIntake>()
         Robot.teleopIntakeControl()
     }
 }

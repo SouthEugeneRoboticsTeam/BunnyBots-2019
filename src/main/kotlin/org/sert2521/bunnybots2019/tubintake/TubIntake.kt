@@ -17,7 +17,6 @@ class TubIntake : Subsystem("TubIntake") {
             MotorControllers.TUBINTAKE_WHEEL_LEFT,
             MotorControllers.TUBINTAKE_WHEEL_RIGHT
     ) {
-        inverted = false
         eachFollower {
             inverted = true
         }
@@ -30,20 +29,25 @@ class TubIntake : Subsystem("TubIntake") {
             MotorControllers.TUBINTAKE_ARM_A,
             MotorControllers.TUBINTAKE_ARM_B
     ) {
-        inverted = false
+        ctreMotorController.configFactoryDefault()
+        sensorPosition = 0
+        sensorInverted = true
+        setPosition(0)
         brakeMode = true
         encoder = Encoder(ENCODER_TICKS)
-
         openLoopRamp = 0.25
 
+        inverted = true
         pidf {
             kp = ARM_KP
             ki = ARM_KI
             kd = ARM_KD
+            maxOutput = 1.0
         }
     }
 
-    val position get() = armDrive.sensorPosition
+    var position get() = armDrive.sensorPosition
+        set(value) {armDrive.sensorPosition = value}
 
     var armRunning = false
         private set
@@ -94,8 +98,7 @@ class TubIntake : Subsystem("TubIntake") {
 
         val initialPosition = armDrive.sensorPosition
         val positionDifference = endPosition.coerceAtMost(ARM_DOWN_TICKS).coerceAtLeast(ARM_UP_TICKS) - initialPosition
-
-        val curveDuration: Long = 500 + 2000 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
+        val curveDuration: Long = 500 + 1500 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
                 .roundToLong()
         val timerPeriod: Long = 20
         var elapsedTime: Long = 0
@@ -111,11 +114,6 @@ class TubIntake : Subsystem("TubIntake") {
                     .roundToInt()
 
             armDrive.setPosition(targetPosition)
-//            armDrive.setPercentOutput(-.2)
-            print("targetPosition: ")
-            println(targetPosition)
-            print("actual: ")
-            println(armDrive.sensorPosition)
         }
         armRunning = false
     }

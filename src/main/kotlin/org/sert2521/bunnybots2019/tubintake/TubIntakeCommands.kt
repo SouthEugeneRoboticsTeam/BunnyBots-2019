@@ -21,12 +21,10 @@ suspend fun Robot.teleopIntakeControl() = doTask {
 
              if(Controls.tubintakeArmUpButton == true && intake.armRunning == false) {
                  intake.runArmToPosition(ARM_UP_TICKS)
-                 println("joystick input (up)")
              }
 
              if(Controls.tubintakeArmDownButton == true && intake.armRunning == false) {
                  intake.runArmToPosition(ARM_DOWN_TICKS)
-                 println("joystick input (down)")
              }
          }
     }

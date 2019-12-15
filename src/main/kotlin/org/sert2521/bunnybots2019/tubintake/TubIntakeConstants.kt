@@ -4,7 +4,7 @@ package org.sert2521.bunnybots2019.tubintake
 const val INTAKE_SPEED = .3
 const val OUTTAKE_SPEED = .5
 
-const val ARM_KP = 1.0
+const val ARM_KP = 0.4
 const val ARM_KI = 0.0
 const val ARM_KD = 0.0
 
