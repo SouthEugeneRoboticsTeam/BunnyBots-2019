@@ -13,7 +13,7 @@ suspend fun timer(period: Long, runTime: Long, task: () -> Unit) {
         periodic(period) {
             task()
             elapsedTime += period
-            if(elapsedTime > runTime) {
+            if (elapsedTime > runTime) {
                 cancel()
             }
         }

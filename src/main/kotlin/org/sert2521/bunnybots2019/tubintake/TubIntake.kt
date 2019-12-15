@@ -57,7 +57,7 @@ class TubIntake : Subsystem("TubIntake") {
 
     private val topLimitSwitch = DigitalInput(Sensors.TUBINTAKE_LIMIT_TOP)
 
-   init {
+    init {
         topLimitSwitch.requestInterrupts(object : InterruptHandlerFunction<Boolean>() {
             override fun interruptFired(interruptAssertedMask: Int, param: Boolean?) {
                     armDrive.sensorPosition = 0
@@ -67,7 +67,7 @@ class TubIntake : Subsystem("TubIntake") {
        topLimitSwitch.enableInterrupts()
     }
 
-   val atTop get() = !topLimitSwitch.get()
+    val atTop get() = !topLimitSwitch.get()
 
     suspend fun runArmToPosition(endPosition: Int) {
         armRunning = true

@@ -16,7 +16,6 @@ import org.sert2521.sertain.subsystems.add
 suspend fun main() = robot {
     add<TubIntake>()
     add<Drivetrain>()
-  
     onTeleop {
         getInputs()
         teleopIntakeControl()

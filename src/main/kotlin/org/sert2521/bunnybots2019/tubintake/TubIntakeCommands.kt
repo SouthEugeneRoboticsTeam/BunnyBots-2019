@@ -34,7 +34,7 @@ suspend fun teleopIntakeControl() = doTask {
 suspend fun autoIntakeCommand(position: Int, intakeRunning: Boolean) = doTask {
     val intake = use<TubIntake>()
     action {
-        if(intakeRunning) {
+        if (intakeRunning) {
             RobotScope.launch {
                 timer(20, 3000) {
                     intake.spinIntake()
