@@ -14,8 +14,7 @@ object MotorControllers {
 }
 
 object Sensors {
-    val TUBINTAKE_LIMIT_TOP = 9999
-    val TUBINTAKE_LIMIT_BOTTOM = 9999
+    val TUBINTAKE_LIMIT_TOP = 8
 }
 
 object Operator {
