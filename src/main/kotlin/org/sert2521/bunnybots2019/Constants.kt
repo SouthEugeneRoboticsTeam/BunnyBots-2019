@@ -6,6 +6,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton
 import org.sert2521.bunnybots2019.tubintake.TubIntake
 
 object MotorControllers {
+  // DriveTrain motor ids
+    val leftFront = TalonId(1)
+    val leftBack = TalonId(2)
+    val rightFront = TalonId(3)
+    val rightBack = TalonId(4)
+  
     val TUBINTAKE_WHEEL_LEFT = TalonId(4)
     val TUBINTAKE_WHEEL_RIGHT = TalonId(3)
 
