@@ -33,10 +33,7 @@ dependencies {
     compile wpi.deps.vendor.java()
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
-    // compile 'com.github.SouthEugeneRoboticsTeam:sertain:0.0.1'
-    compile fileTree('C:\\Users\\Aidan\\IdeaProjects\\sertain\\core\\build\\libs') {
-        include '*.jar'
-    }
+    compile 'com.github.SouthEugeneRoboticsTeam:sertain:0.0.1'
 }
 
 compileKotlin {
