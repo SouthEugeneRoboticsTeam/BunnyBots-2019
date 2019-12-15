@@ -7,25 +7,25 @@ import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.subsystems.doTask
 import org.sert2521.sertain.subsystems.use
 
-suspend fun Robot.teleopIntakeControl() = doTask {
+suspend fun teleopIntakeControl() = doTask {
     val intake = use<TubIntake>()
     action {
-         val job = onTick {
-             if(Controls.tubintakeInButton == true) {
+        val job = onTick {
+            if (Controls.tubintakeInButton) {
                 intake.spinIntake()
-             } else if(Controls.tubintakeOutButton == true) {
+            } else if (Controls.tubintakeOutButton) {
                 intake.spinOuttake()
-             } else {
+            } else {
                 intake.stopSpin()
-             }
+            }
 
-             if(Controls.tubintakeArmUpButton == true && intake.armRunning == false) {
-                 intake.runArmToPosition(ARM_UP_TICKS)
-             }
+            if (Controls.tubintakeArmUpButton && !intake.armRunning) {
+                intake.runArmToPosition(ARM_UP_TICKS)
+            }
 
-             if(Controls.tubintakeArmDownButton == true && intake.armRunning == false) {
-                 intake.runArmToPosition(ARM_DOWN_TICKS)
-             }
-         }
+            if (Controls.tubintakeArmDownButton && !intake.armRunning) {
+                intake.runArmToPosition(ARM_DOWN_TICKS)
+            }
+        }
     }
 }

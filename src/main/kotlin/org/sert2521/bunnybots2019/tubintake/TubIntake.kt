@@ -46,8 +46,11 @@ class TubIntake : Subsystem("TubIntake") {
         }
     }
 
-    var position get() = armDrive.sensorPosition
-        set(value) {armDrive.sensorPosition = value}
+    var position
+        get() = armDrive.sensorPosition
+        set(value) {
+            armDrive.sensorPosition = value
+        }
 
     var armRunning = false
         private set
@@ -98,7 +101,8 @@ class TubIntake : Subsystem("TubIntake") {
 
         val initialPosition = armDrive.sensorPosition
         val positionDifference = endPosition.coerceAtMost(ARM_DOWN_TICKS).coerceAtLeast(ARM_UP_TICKS) - initialPosition
-        val curveDuration: Long = 500 + 1500 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
+        val curveDurationModifier: Long = if (endPosition == ARM_DOWN_TICKS) 500 else 2000
+        val curveDuration: Long = curveDurationModifier + 1500 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
                 .roundToLong()
         val timerPeriod: Long = 20
         var elapsedTime: Long = 0
