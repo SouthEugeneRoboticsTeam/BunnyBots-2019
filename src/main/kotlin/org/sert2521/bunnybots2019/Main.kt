@@ -20,7 +20,4 @@ suspend fun main() = robot {
         getInputs()
         teleopIntakeControl()
     }
-
-    onAuto {
-    }
 }
