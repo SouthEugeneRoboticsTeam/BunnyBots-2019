@@ -38,3 +38,13 @@ suspend fun driveDistance(speed: Double, distance: Double) = doTask {
         }
     }
 }
+
+suspend fun driveDistanceWithSetPosition(speed: Double, distance: Double) = doTask {
+    val drivetrain = use<Drivetrain>()
+    val ticks = ((PULSES_PER_REVOLUTION * distance / 2.0) / (2 * Math.PI * WHEEL_RADIUS)).toInt()
+    action {
+        onTick {
+            drivetrain.driveToPosition(ticks)
+        }
+    }
+}
