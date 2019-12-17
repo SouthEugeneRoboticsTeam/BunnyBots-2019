@@ -3,7 +3,6 @@ package org.sert2521.bunnybots2019.utils
 fun Double.deadband(range: Double) =
         if (this < range && this > -range) 0.0 else this
 
-
 fun ClosedRange<Double>.intersects(other: ClosedRange<Double>): Boolean =
         start in other || endInclusive in other
 
