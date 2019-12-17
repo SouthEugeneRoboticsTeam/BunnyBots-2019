@@ -6,7 +6,7 @@ import org.sert2521.sertain.subsystems.Subsystem
 
 class Intake : Subsystem("Intake") {
     private val intakeMotor  = MotorController(
-            MotorControllers.ROLLER_LEFT
+            MotorControllers.ROLLER
     ) {
         eachFollower {
             inverted = false
