@@ -2,9 +2,11 @@ package org.sert2521.bunnybots2019.drivetrain
 
 import org.sert2521.bunnybots2019.*
 import org.sert2521.sertain.motors.MotorController
+import org.sert2521.sertain.networktables.Table
+import org.sert2521.sertain.networktables.TableEntry
 import org.sert2521.sertain.subsystems.Subsystem
 
-class Drivetrain : Subsystem("Drivetrain", ::driveTrain) {
+class Drivetrain : Subsystem("Drivetrain", ::controlDrivetrain) {
     private val right = MotorController(MotorControllers.rightFront, MotorControllers.rightBack) {
         inverted = true
         brakeMode = true
@@ -14,10 +16,10 @@ class Drivetrain : Subsystem("Drivetrain", ::driveTrain) {
     }
 
     init {
-        right.position = 0
-        left.position = 0
+        var someEntry by TableEntry(100)
+        right.sensorPosition = 0
+        left.sensorPosition = 0
     }
-
 
     fun arcadeDrive(speed: Double, turn: Double) {
         right.setPercentOutput(speed - turn)
