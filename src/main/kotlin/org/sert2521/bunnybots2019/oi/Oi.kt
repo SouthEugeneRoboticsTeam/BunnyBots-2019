@@ -5,7 +5,3 @@ import kotlinx.coroutines.CoroutineScope
 import org.sert2521.bunnybots2019.Operator
 
 val primaryJoystick by lazy { Joystick(Operator.PRIMARY_STICK) }
-
-fun CoroutineScope.getInputs() {
-
-}
