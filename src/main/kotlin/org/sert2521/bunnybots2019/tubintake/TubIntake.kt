@@ -1,5 +1,5 @@
 package org.sert2521.bunnybots2019.tubintake
-
+import com.ctre.phoenix.motorcontrol.can.VictorSPX
 import edu.wpi.first.wpilibj.DigitalInput
 import edu.wpi.first.wpilibj.InterruptHandlerFunction
 import org.sert2521.bunnybots2019.MotorControllers
@@ -13,13 +13,13 @@ import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
 class TubIntake : Subsystem("TubIntake") {
+    val vicky = VictorSPX(9).apply {
+        inverted = true
+    }
     private val wheelDrive = MotorController(
-            MotorControllers.TUBINTAKE_WHEEL_LEFT,
-            MotorControllers.TUBINTAKE_WHEEL_RIGHT
+            MotorControllers.TUBINTAKE_WHEEL_LEFT
     ) {
-        eachFollower {
-            inverted = true
-        }
+        vicky.follow(ctreMotorController)
     }
 
     var intakeRunning = false
@@ -96,12 +96,16 @@ class TubIntake : Subsystem("TubIntake") {
     }
 
     fun spinIntake() {
-        wheelDrive.setPercentOutput(INTAKE_SPEED)
+        // wheelyDrive.set(ControlMode.PercentOutput, INTAKE_SPEED * 2)
+        wheelDrive.setPercentOutput(1.0)
+        println("Setting percent output to 1")
         intakeRunning = true
     }
 
     fun spinOuttake() {
-        wheelDrive.setPercentOutput(-OUTTAKE_SPEED)
+        // wheelyDrive.set(ControlMode.PercentOutput, -INTAKE_SPEED * 2)
+        wheelDrive.setPercentOutput(-1.0)
+        println("Setting percent output to -1")
         intakeRunning = true
     }
 
