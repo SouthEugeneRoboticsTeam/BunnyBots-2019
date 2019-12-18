@@ -32,7 +32,7 @@ dependencies {
     compile wpi.deps.vendor.java()
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
-    compile 'com.github.SouthEugeneRoboticsTeam:sertain:master-SNAPSHOT'
+    compile 'com.github.SouthEugeneRoboticsTeam:sertain:0.0.2'
 }
 
 compileKotlin {
