@@ -12,7 +12,7 @@ object MotorControllers {
     val rightBack = TalonId(1)
 
     val TUBINTAKE_WHEEL_LEFT = TalonId(8)
-    val TUBINTAKE_WHEEL_RIGHT = TalonId(9)
+    val TUBINTAKE_WHEEL_RIGHT = VictorId(9)
 
     val TUBINTAKE_ARM_A = TalonId(7)
     val TUBINTAKE_ARM_B = TalonId(6)
