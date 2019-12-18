@@ -27,5 +27,4 @@ class Drivetrain : Subsystem("Drivetrain", ::controlDrivetrain) {
         right.setPercentOutput(rightSpeed)
         left.setPercentOutput(leftSpeed)
     }
-
 }
