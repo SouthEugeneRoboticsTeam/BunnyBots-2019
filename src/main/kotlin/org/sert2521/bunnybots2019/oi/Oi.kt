@@ -23,13 +23,13 @@ fun CoroutineScope.getInputs() {
         }
     };
     { primaryJoystick.getRawButton(Operator.TUBINTAKE_IN_BUTTON) }.watch() {
-        whileTrue() {
+        whileTrue {
             println("Intake should be spinning in")
             tubIntake()
         }
     };
     { primaryJoystick.getRawButton(Operator.TUBINTAKE_OUT_BUTTON) }.watch() {
-        whileTrue() {
+        whileTrue {
             println("Outtake should be running")
             tubOuttake()
         }
