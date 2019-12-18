@@ -8,13 +8,9 @@ class Intake : Subsystem("Intake") {
     private val intakeMotor  = MotorController(
             MotorControllers.ROLLER
     ) {
-        eachFollower {
-            inverted = false
-            brakeMode = true
-
-            maxOutputRange = -0.75..0.75
-
-        }
+        inverted = true
+        brakeMode = true
+        maxOutputRange = -0.75..0.75
     }
 
     private var intakeRunning = false

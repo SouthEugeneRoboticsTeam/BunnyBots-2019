@@ -31,10 +31,7 @@ class TubIntake : Subsystem("TubIntake") {
     ) {
         ctreMotorController.configFactoryDefault()
         encoder = Encoder(ENCODER_TICKS)
-        sensorPosition = 0
-        sensorInverted = true
-        setPosition(0)
-
+        position = 0
         inverted = true
         brakeMode = true
 
@@ -47,9 +44,9 @@ class TubIntake : Subsystem("TubIntake") {
     }
 
     var position
-        get() = armDrive.sensorPosition
+        get() = armDrive.position
         set(value) {
-            armDrive.sensorPosition = value
+            armDrive.position = value
         }
 
     var armRunning = false
@@ -60,7 +57,7 @@ class TubIntake : Subsystem("TubIntake") {
     init {
         topLimitSwitch.requestInterrupts(object : InterruptHandlerFunction<Boolean>() {
             override fun interruptFired(interruptAssertedMask: Int, param: Boolean?) {
-                    armDrive.sensorPosition = 0
+                    armDrive.position = 0
             }
         })
        topLimitSwitch.setUpSourceEdge(false, true)
@@ -72,7 +69,7 @@ class TubIntake : Subsystem("TubIntake") {
     suspend fun runArmToPosition(endPosition: Int) {
         armRunning = true
 
-        val initialPosition = armDrive.sensorPosition
+        val initialPosition = armDrive.position
         val positionDifference = endPosition.coerceAtMost(ARM_DOWN_TICKS).coerceAtLeast(ARM_UP_TICKS) - initialPosition
         val curveDurationModifier: Long = if (endPosition == ARM_DOWN_TICKS) 1000 else 1000
         val curveDuration: Long = curveDurationModifier + 1000 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
@@ -90,7 +87,7 @@ class TubIntake : Subsystem("TubIntake") {
             val targetPosition: Int = ((CURVE_COEFFICIENTS[percentDone] * positionDifference.toDouble()) + initialPosition)
                     .roundToInt()
 
-            armDrive.setPosition(targetPosition)
+            armDrive.setTargetPosition(targetPosition)
         }
         armRunning = false
     }
