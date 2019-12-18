@@ -14,8 +14,8 @@ class Drivetrain : Subsystem("Drivetrain", ::controlDrivetrain) {
     }
 
     init {
-        right.sensorPosition = 0
-        left.sensorPosition = 0
+        right.position = 0
+        left.position = 0
     }
 
     fun arcadeDrive(speed: Double, turn: Double) {
@@ -27,5 +27,4 @@ class Drivetrain : Subsystem("Drivetrain", ::controlDrivetrain) {
         right.setPercentOutput(rightSpeed)
         left.setPercentOutput(leftSpeed)
     }
-
 }
