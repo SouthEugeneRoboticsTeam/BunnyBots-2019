@@ -35,7 +35,6 @@ class TubIntake : Subsystem("TubIntake") {
         sensorInverted = true
         setTargetPosition(0)
 
-        inverted = true
         brakeMode = true
 
         pidf {
@@ -60,11 +59,11 @@ class TubIntake : Subsystem("TubIntake") {
     init {
         topLimitSwitch.requestInterrupts(object : InterruptHandlerFunction<Boolean>() {
             override fun interruptFired(interruptAssertedMask: Int, param: Boolean?) {
-                    armDrive.position = 0
+                armDrive.position = 0
             }
         })
-       topLimitSwitch.setUpSourceEdge(false, true)
-       topLimitSwitch.enableInterrupts()
+        topLimitSwitch.setUpSourceEdge(false, true)
+        topLimitSwitch.enableInterrupts()
     }
 
     val atTop get() = !topLimitSwitch.get()
@@ -81,6 +80,7 @@ class TubIntake : Subsystem("TubIntake") {
         var elapsedTime: Long = 0
 
         timer(timerPeriod, curveDuration) {
+            println("Position: ${armDrive.position}")
             elapsedTime += timerPeriod
             val percentDone: Int = (100.0 * (elapsedTime.toDouble() / curveDuration.toDouble()))
                     .roundToInt()
