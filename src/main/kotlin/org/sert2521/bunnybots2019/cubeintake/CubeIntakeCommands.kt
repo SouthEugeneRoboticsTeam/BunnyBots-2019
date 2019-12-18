@@ -19,7 +19,7 @@ suspend fun intakeCubes() = doTask {
     }
 }
 
-suspend fun reverseIntakeCubes() = doTask {
+suspend fun outtakeCubes() = doTask {
     val intake = use<CubeIntake>()
     action {
         try {
