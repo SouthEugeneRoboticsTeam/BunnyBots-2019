@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.CoroutineScope
-import org.sert2521.bunnybots2019.PRIMARY_STICK
+import org.sert2521.bunnybots2019.Operator
 
 enum class ControlMode {
     CONTROLLER, JOYSTICK
@@ -17,7 +17,7 @@ val controlModeChooser = SendableChooser<ControlMode>().apply {
 
 val controlMode get() = controlModeChooser.selected ?: ControlMode.CONTROLLER
 
-val primaryJoystick by lazy { Joystick(PRIMARY_STICK) }
+val primaryJoystick by lazy { Joystick(Operator.PRIMARY_STICK) }
 
 fun CoroutineScope.getInputs() {
     SmartDashboard.putData("Control Mode", controlModeChooser)
