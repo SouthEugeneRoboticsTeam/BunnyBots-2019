@@ -20,3 +20,18 @@ suspend fun intake() = doTask {
         }
     }
 }
+
+suspend fun reverseIntake() = doTask {
+    val intake = use<Intake>()
+    action {
+        try {
+            periodic(20) {
+                intake.spinReverse()
+                println("Spinning intake")
+            }
+        } finally {
+            println("Intake should stop")
+            intake.stopSpin()
+        }
+    }
+}

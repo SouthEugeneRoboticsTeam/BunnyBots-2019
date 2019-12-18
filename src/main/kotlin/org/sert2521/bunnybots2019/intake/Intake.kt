@@ -5,7 +5,7 @@ import org.sert2521.sertain.motors.MotorController
 import org.sert2521.sertain.subsystems.Subsystem
 
 class Intake : Subsystem("Intake") {
-    private val intakeMotor  = MotorController(
+    private val intakeMotor = MotorController(
             MotorControllers.ROLLER
     ) {
         inverted = true
@@ -17,6 +17,11 @@ class Intake : Subsystem("Intake") {
 
     fun spinIntake() {
         intakeMotor.setPercentOutput(ROLLER_INTAKE_SPEED)
+        intakeRunning = true
+    }
+
+    fun spinReverse() {
+        intakeMotor.setPercentOutput(-ROLLER_INTAKE_SPEED)
         intakeRunning = true
     }
 
