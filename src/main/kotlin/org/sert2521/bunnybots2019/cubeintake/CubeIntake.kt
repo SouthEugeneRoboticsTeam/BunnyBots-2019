@@ -1,10 +1,10 @@
-package org.sert2521.bunnybots2019.intake
+package org.sert2521.bunnybots2019.cubeintake
 
 import org.sert2521.bunnybots2019.MotorControllers
 import org.sert2521.sertain.motors.MotorController
 import org.sert2521.sertain.subsystems.Subsystem
 
-class Intake : Subsystem("Intake") {
+class CubeIntake : Subsystem("TubIntake") {
     private val intakeMotor = MotorController(
             MotorControllers.ROLLER
     ) {
