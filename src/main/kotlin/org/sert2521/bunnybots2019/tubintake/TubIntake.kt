@@ -1,5 +1,5 @@
 package org.sert2521.bunnybots2019.tubintake
-
+import com.ctre.phoenix.motorcontrol.can.VictorSPX
 import edu.wpi.first.wpilibj.DigitalInput
 import edu.wpi.first.wpilibj.InterruptHandlerFunction
 import org.sert2521.bunnybots2019.MotorControllers
@@ -12,14 +12,14 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
-class TubIntake : Subsystem("TubIntake") {
+class TubIntake : Subsystem("TubIntake", ::teleopIntakeControl) {
+    val vicky = VictorSPX(9).apply {
+        inverted = true
+    }
     private val wheelDrive = MotorController(
-            MotorControllers.TUBINTAKE_WHEEL_LEFT,
-            MotorControllers.TUBINTAKE_WHEEL_RIGHT
+            MotorControllers.TUBINTAKE_WHEEL_LEFT
     ) {
-        eachFollower {
-            inverted = true
-        }
+        vicky.follow(ctreMotorController)
     }
 
     var intakeRunning = false
@@ -31,11 +31,10 @@ class TubIntake : Subsystem("TubIntake") {
     ) {
         ctreMotorController.configFactoryDefault()
         encoder = Encoder(ENCODER_TICKS)
-        sensorPosition = 0
+        position = 0
         sensorInverted = true
-        setPosition(0)
+        setTargetPosition(0)
 
-        inverted = true
         brakeMode = true
 
         pidf {
@@ -45,11 +44,13 @@ class TubIntake : Subsystem("TubIntake") {
             maxOutput = 1.0
         }
     }
-
+    fun home() {
+        armDrive.setPercentOutput(-0.1)
+    }
     var position
-        get() = armDrive.sensorPosition
+        get() = armDrive.position
         set(value) {
-            armDrive.sensorPosition = value
+            armDrive.position = value
         }
 
     var armRunning = false
@@ -60,11 +61,11 @@ class TubIntake : Subsystem("TubIntake") {
     init {
         topLimitSwitch.requestInterrupts(object : InterruptHandlerFunction<Boolean>() {
             override fun interruptFired(interruptAssertedMask: Int, param: Boolean?) {
-                    armDrive.sensorPosition = 0
+                armDrive.position = 0
             }
         })
-       topLimitSwitch.setUpSourceEdge(false, true)
-       topLimitSwitch.enableInterrupts()
+        topLimitSwitch.setUpSourceEdge(false, true)
+        topLimitSwitch.enableInterrupts()
     }
 
     val atTop get() = !topLimitSwitch.get()
@@ -72,15 +73,16 @@ class TubIntake : Subsystem("TubIntake") {
     suspend fun runArmToPosition(endPosition: Int) {
         armRunning = true
 
-        val initialPosition = armDrive.sensorPosition
+        val initialPosition = armDrive.position
         val positionDifference = endPosition.coerceAtMost(ARM_DOWN_TICKS).coerceAtLeast(ARM_UP_TICKS) - initialPosition
-        val curveDurationModifier: Long = if (endPosition == ARM_DOWN_TICKS) 1000 else 1000
-        val curveDuration: Long = curveDurationModifier + 1000 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
+        val curveDurationModifier: Long = if (endPosition == ARM_DOWN_TICKS) 1000 else 1250
+        val curveDuration: Long = curveDurationModifier + 650 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
                 .roundToLong()
         val timerPeriod: Long = 20
         var elapsedTime: Long = 0
 
         timer(timerPeriod, curveDuration) {
+            println("Position: ${armDrive.position}")
             elapsedTime += timerPeriod
             val percentDone: Int = (100.0 * (elapsedTime.toDouble() / curveDuration.toDouble()))
                     .roundToInt()
@@ -90,18 +92,22 @@ class TubIntake : Subsystem("TubIntake") {
             val targetPosition: Int = ((CURVE_COEFFICIENTS[percentDone] * positionDifference.toDouble()) + initialPosition)
                     .roundToInt()
 
-            armDrive.setPosition(targetPosition)
+            armDrive.setTargetPosition(targetPosition)
         }
         armRunning = false
     }
 
     fun spinIntake() {
-        wheelDrive.setPercentOutput(INTAKE_SPEED)
+        // wheelyDrive.set(ControlMode.PercentOutput, INTAKE_SPEED * 2)
+        wheelDrive.setPercentOutput(1.0)
+        println("Setting percent output to 1")
         intakeRunning = true
     }
 
     fun spinOuttake() {
-        wheelDrive.setPercentOutput(-OUTTAKE_SPEED)
+        // wheelyDrive.set(ControlMode.PercentOutput, -INTAKE_SPEED * 2)
+        wheelDrive.setPercentOutput(-1.0)
+        println("Setting percent output to -1")
         intakeRunning = true
     }
 
