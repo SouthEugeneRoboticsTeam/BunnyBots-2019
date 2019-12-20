@@ -21,5 +21,5 @@ fun CoroutineScope.getInputs() {
             println("Outtake should be running")
             tubOuttake()
         }
-    };
+    }
 }

@@ -12,7 +12,7 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
-class TubIntake : Subsystem("TubIntake") {
+class TubIntake : Subsystem("TubIntake", ::teleopIntakeControl) {
     val vicky = VictorSPX(9).apply {
         inverted = true
     }
@@ -44,7 +44,9 @@ class TubIntake : Subsystem("TubIntake") {
             maxOutput = 1.0
         }
     }
-
+    fun home() {
+//        armDrive.setPercentOutput(-0.05)
+    }
     var position
         get() = armDrive.position
         set(value) {
@@ -74,7 +76,7 @@ class TubIntake : Subsystem("TubIntake") {
         val initialPosition = armDrive.position
         val positionDifference = endPosition.coerceAtMost(ARM_DOWN_TICKS).coerceAtLeast(ARM_UP_TICKS) - initialPosition
         val curveDurationModifier: Long = if (endPosition == ARM_DOWN_TICKS) 1000 else 1000
-        val curveDuration: Long = curveDurationModifier + 1000 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
+        val curveDuration: Long = curveDurationModifier + 500 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
                 .roundToLong()
         val timerPeriod: Long = 20
         var elapsedTime: Long = 0
