@@ -5,6 +5,7 @@ import org.sert2521.sertain.coroutines.periodic
 import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.subsystems.doTask
 import org.sert2521.sertain.subsystems.use
+import kotlin.math.abs
 
 suspend fun tubIntake() = doTask {
     val tubIntake = use<TubIntake>()
@@ -50,12 +51,17 @@ suspend fun teleopIntakeControl() = doTask {
 //                println("Stopping spin")
 //                intake.stopSpin()
 //            }
-
+            if(!intake.armRunning && abs(intake.position) < 10) {
+                //thanks, i hate it
+                intake.home()
+            }
             if (Controls.tubintakeArmUpButton && !intake.armRunning) {
+                println("Going up")
                 intake.runArmToPosition(ARM_UP_TICKS)
             }
 
             if (Controls.tubintakeArmDownButton && !intake.armRunning) {
+                println("Going down")
                 intake.runArmToPosition(ARM_DOWN_TICKS)
             }
         }

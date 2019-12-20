@@ -5,7 +5,7 @@ const val INTAKE_SPEED = 0.3
 const val OUTTAKE_SPEED = 0.5
 
 const val ARM_KP = 0.4
-const val ARM_KI = 0.0
+const val ARM_KI = 0.002
 const val ARM_KD = 0.0
 
 const val ENCODER_TICKS = 2048
