@@ -45,7 +45,7 @@ class TubIntake : Subsystem("TubIntake", ::teleopIntakeControl) {
         }
     }
     fun home() {
-//        armDrive.setPercentOutput(-0.05)
+        armDrive.setPercentOutput(-0.1)
     }
     var position
         get() = armDrive.position
@@ -75,8 +75,8 @@ class TubIntake : Subsystem("TubIntake", ::teleopIntakeControl) {
 
         val initialPosition = armDrive.position
         val positionDifference = endPosition.coerceAtMost(ARM_DOWN_TICKS).coerceAtLeast(ARM_UP_TICKS) - initialPosition
-        val curveDurationModifier: Long = if (endPosition == ARM_DOWN_TICKS) 1000 else 1000
-        val curveDuration: Long = curveDurationModifier + 500 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
+        val curveDurationModifier: Long = if (endPosition == ARM_DOWN_TICKS) 1000 else 1250
+        val curveDuration: Long = curveDurationModifier + 650 * abs(positionDifference.toDouble() / (ARM_UP_TICKS - ARM_DOWN_TICKS).toDouble())
                 .roundToLong()
         val timerPeriod: Long = 20
         var elapsedTime: Long = 0
