@@ -24,31 +24,37 @@ val controlModeChooser = SendableChooser<ControlMode>().apply {
 val controlMode get() = controlModeChooser.selected ?: ControlMode.CONTROLLER
 
 val primaryJoystick by lazy { Joystick(Operator.PRIMARY_STICK) }
+val secondaryJoystick by lazy { Joystick(Operator.SECONDARY_STICK) }
 val primaryController by lazy { XboxController(Operator.PRIMARY_CONTROLLER) }
 
 fun CoroutineScope.getInputs() {
     SmartDashboard.putData("Control Mode", controlModeChooser);
 
-    { primaryJoystick.getRawButton(3) }.watch {
+    { primaryJoystick.getRawButton(Operator.CUBEINTAKE_BUTTON) }.watch {
         whileTrue {
             intakeCubes()
         }
     };
-    { primaryJoystick.getRawButton(11) }.watch {
+    { secondaryJoystick.getRawButton(Operator.CUBEOUTTAKE_BUTTON) }.watch {
         whileTrue {
             outtakeCubes()
         }
     };
-    { primaryJoystick.getRawButton(Operator.TUBINTAKE_IN_BUTTON) }.watch() {
+    { secondaryJoystick.getRawButton(Operator.TUBINTAKE_IN_BUTTON) }.watch {
         whileTrue {
             println("Intake should be spinning in")
             tubIntake()
         }
     };
-    { primaryJoystick.getRawButton(Operator.TUBINTAKE_OUT_BUTTON) }.watch() {
+    { secondaryJoystick.getRawButton(Operator.TUBINTAKE_OUT_BUTTON) }.watch {
         whileTrue {
             println("Outtake should be running")
             tubOuttake()
+        }
+    };
+    { primaryController.backButton }.watch {
+        whileTrue {
+            intakeCubes()
         }
     }
 }

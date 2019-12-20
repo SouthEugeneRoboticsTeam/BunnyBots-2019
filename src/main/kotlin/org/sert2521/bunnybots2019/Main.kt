@@ -15,5 +15,6 @@ suspend fun main() = robot {
 
     onTeleop {
         getInputs()
+        teleopIntakeControl()
     }
 }

@@ -41,17 +41,7 @@ suspend fun teleopIntakeControl() = doTask {
     val intake = use<TubIntake>()
     action {
         onTick {
-            //            if (Controls.tubintakeInButton) {
-//                println("Intake should be spinning in")
-//                intake.spinIntake()
-//            } else if (Controls.tubintakeOutButton) {
-//                println("Intake should be spinning out")
-//                intake.spinOuttake()
-//            } else {
-//                println("Stopping spin")
-//                intake.stopSpin()
-//            }
-            if(!intake.armRunning && abs(intake.position) < 10) {
+            if (!intake.armRunning && abs(intake.position) < 10) {
                 //thanks, i hate it
                 intake.home()
             }
