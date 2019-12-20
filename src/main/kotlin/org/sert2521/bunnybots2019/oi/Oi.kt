@@ -27,7 +27,7 @@ val primaryJoystick by lazy { Joystick(Operator.PRIMARY_STICK) }
 val primaryController by lazy { XboxController(Operator.PRIMARY_CONTROLLER) }
 
 fun CoroutineScope.getInputs() {
-    SmartDashboard.putData("Control Mode", controlModeChooser)
+    SmartDashboard.putData("Control Mode", controlModeChooser);
 
     { primaryJoystick.getRawButton(3) }.watch {
         whileTrue {
