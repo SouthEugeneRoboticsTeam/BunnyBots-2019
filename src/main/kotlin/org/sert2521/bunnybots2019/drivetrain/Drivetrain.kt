@@ -25,8 +25,8 @@ class Drivetrain : Subsystem("Drivetrain", ::controlDrivetrain) {
         }
     }
 
-    val rightPosition get() = right.sensorPosition
-    val leftPosition get() = left.sensorPosition
+    val rightPosition get() = right.position
+    val leftPosition get() = left.position
     val position get() = (rightPosition + leftPosition) / 2
 
 
@@ -45,8 +45,8 @@ class Drivetrain : Subsystem("Drivetrain", ::controlDrivetrain) {
     }
 
     fun driveToPosition(targetPosition: Int) {
-        right.setPosition(targetPosition)
-        left.setPosition(targetPosition)
+        right.setTargetPosition(targetPosition)
+        left.setTargetPosition(targetPosition)
     }
 
     fun stop() {
@@ -55,8 +55,8 @@ class Drivetrain : Subsystem("Drivetrain", ::controlDrivetrain) {
     }
 
     fun zeroEncoders() {
-        right.sensorPosition = 0
-        left.sensorPosition = 0
+        right.position = 0
+        left.position = 0
     }
 
 }
