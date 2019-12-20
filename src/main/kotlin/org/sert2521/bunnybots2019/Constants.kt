@@ -17,7 +17,7 @@ object MotorControllers {
     val TUBINTAKE_ARM_A = TalonId(7)
     val TUBINTAKE_ARM_B = TalonId(6)
 
-    val BEDDUMPER = TalonId(11)
+    val BEDDUMPER = VictorId(20)
 }
 
 object Sensors {
