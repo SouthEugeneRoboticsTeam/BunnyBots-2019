@@ -7,7 +7,7 @@ import org.sert2521.sertain.subsystems.doTask
 import org.sert2521.sertain.subsystems.use
 import kotlin.math.abs
 
-suspend fun tubIntake() = doTask {
+suspend fun intakeTub() = doTask {
     val tubIntake = use<TubIntake>()
     action {
         try {
@@ -22,7 +22,7 @@ suspend fun tubIntake() = doTask {
     }
 }
 
-suspend fun tubOuttake() = doTask {
+suspend fun outtakeTub() = doTask {
     val tubIntake = use<TubIntake>()
     action {
         try {
