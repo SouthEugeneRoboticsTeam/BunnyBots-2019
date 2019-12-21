@@ -12,7 +12,7 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
-class TubIntake : Subsystem("TubIntake", ::teleopIntakeControl) {
+class TubIntake : Subsystem("TubIntake", ::teleopArmControl) {
     val vicky = VictorSPX(9).apply {
         inverted = true
     }
