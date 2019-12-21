@@ -1,8 +1,8 @@
 package org.sert2521.bunnybots2019.drivetrain
 
-import com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table
 import edu.wpi.first.networktables.NetworkTableInstance
 import kotlinx.coroutines.cancel
+import org.sert2521.bunnybots2019.utils.deadband
 import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.subsystems.doTask
 import org.sert2521.sertain.subsystems.use
