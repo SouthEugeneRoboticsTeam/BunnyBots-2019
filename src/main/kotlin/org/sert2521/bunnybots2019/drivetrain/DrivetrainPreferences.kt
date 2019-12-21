@@ -6,6 +6,6 @@ val driveSpeedScalar get() = Preferences.getInstance().getDouble("drive_speed_sc
 
 // Number of encoder pulses for one revolution of the wheel
 // TODO: Tune on carpet
-const val PULSES_PER_REVOLUTION = 7442.0
+const val PULSES_PER_REVOLUTION = 4096
 const val WHEEL_RADIUS = 3.0
-const val WHEEL_RADIUS_METERS = 0.0254
+const val WHEEL_RADIUS_METERS = 0.0762
