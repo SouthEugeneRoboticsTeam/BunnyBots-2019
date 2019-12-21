@@ -41,6 +41,7 @@ private val turn
 
 suspend fun controlDrivetrain() = doTask {
     val drivetrain = use<Drivetrain>()
+
     action {
         onTick {
             val scaledThrottle = (-throttle.sign * (throttle * throttle)).deadband(.05)
