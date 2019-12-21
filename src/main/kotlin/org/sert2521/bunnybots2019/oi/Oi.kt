@@ -34,34 +34,37 @@ fun CoroutineScope.initControls() {
     { primaryJoystick.getRawButton(Operator.CUBEINTAKE_BUTTON) }.watch {
         whileTrue {
             intakeCubes()
+            println("Cube intake should be running")
         }
     };
     { secondaryJoystick.getRawButton(Operator.CUBEOUTTAKE_BUTTON) }.watch {
         whileTrue {
+            println("Cube outtake should be running")
             outtakeCubes()
         }
     };
     { secondaryJoystick.getRawButton(Operator.TUBINTAKE_IN_BUTTON) }.watch {
         whileTrue {
-            println("Intake should be spinning in")
+            println("Tub intake should be spinning")
             intakeTub()
         }
     };
     { secondaryJoystick.getRawButton(Operator.TUBINTAKE_OUT_BUTTON) }.watch {
         whileTrue {
-            println("Outtake should be running")
+            println("Tub outtake should be running")
             outtakeTub()
+        }
+    };
+    { secondaryJoystick.getRawButton(Operator.BEDDUMP_BUTTON) }.watch {
+        whileTrue {
+            println("Dumping bed")
+            dumpBed()
         }
     };
     { primaryController.backButton }.watch {
         whileTrue {
+            println("Intaking cubes using the controller!")
             intakeCubes()
         }
     };
-    { primaryJoystick.getRawButton(14) }.watch {
-         whileTrue {
-             println("Dumping bed")
-             dumpBed()
-         }
-    }
 }
