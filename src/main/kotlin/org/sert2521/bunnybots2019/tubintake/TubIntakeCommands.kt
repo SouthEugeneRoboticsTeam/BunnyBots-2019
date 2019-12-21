@@ -37,7 +37,7 @@ suspend fun outtakeTub() = doTask {
     }
 }
 
-suspend fun teleopArmControl() = doTask {
+suspend fun homeArm() = doTask {
     val intake = use<TubIntake>()
     action {
         onTick {
@@ -45,22 +45,11 @@ suspend fun teleopArmControl() = doTask {
                 //thanks, i hate it
                 intake.home()
             }
-            if (Controls.tubintakeArmUpButton && !intake.armRunning) {
-                println("Going up")
-                intake.runArmToPosition(ARM_UP_TICKS)
-                println(intake.position)
-            }
-
-            if (Controls.tubintakeArmDownButton && !intake.armRunning) {
-                println("Going down")
-                println(intake.position)
-                intake.runArmToPosition(ARM_DOWN_TICKS)
-            }
         }
     }
 }
 
-suspend fun autoRunArm(position: Int) = doTask {
+suspend fun runArmTo(position: Int) = doTask {
     val intake = use<TubIntake>()
     action {
         intake.runArmToPosition(position)
