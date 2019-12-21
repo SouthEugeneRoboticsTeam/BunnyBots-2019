@@ -37,31 +37,23 @@ suspend fun outtakeTub() = doTask {
     }
 }
 
-suspend fun teleopIntakeControl() = doTask {
+suspend fun teleopArmControl() = doTask {
     val intake = use<TubIntake>()
     action {
         onTick {
-            //            if (Controls.tubintakeInButton) {
-//                println("Intake should be spinning in")
-//                intake.spinIntake()
-//            } else if (Controls.tubintakeOutButton) {
-//                println("Intake should be spinning out")
-//                intake.spinOuttake()
-//            } else {
-//                println("Stopping spin")
-//                intake.stopSpin()
-//            }
-            if(!intake.armRunning && abs(intake.position) < 10) {
+            if (!intake.armRunning && abs(intake.position) < 10) {
                 //thanks, i hate it
                 intake.home()
             }
             if (Controls.tubintakeArmUpButton && !intake.armRunning) {
                 println("Going up")
                 intake.runArmToPosition(ARM_UP_TICKS)
+                println(intake.position)
             }
 
             if (Controls.tubintakeArmDownButton && !intake.armRunning) {
                 println("Going down")
+                println(intake.position)
                 intake.runArmToPosition(ARM_DOWN_TICKS)
             }
         }
