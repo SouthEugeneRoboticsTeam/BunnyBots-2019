@@ -1,5 +1,6 @@
 package org.sert2521.bunnybots2019.oi
 
+import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
@@ -22,21 +23,15 @@ val controlModeChooser = SendableChooser<ControlMode>().apply {
     addOption("Controller", ControlMode.CONTROLLER)
 }
 
-val controlMode get() = controlModeChooser.selected ?: ControlMode.CONTROLLER
+val controlMode get() = controlModeChooser.selected ?: ControlMode.JOYSTICK
 
 val primaryJoystick by lazy { Joystick(Operator.PRIMARY_STICK) }
 val secondaryJoystick by lazy { Joystick(Operator.SECONDARY_STICK) }
 val primaryController by lazy { XboxController(Operator.PRIMARY_CONTROLLER) }
 
 fun CoroutineScope.initControls() {
-    SmartDashboard.putData("Control Mode", controlModeChooser);
+//    SmartDashboard.putData("Control Mode", controlModeChooser);
 
-    { primaryJoystick.getRawButton(Operator.CUBEINTAKE_BUTTON) }.watch {
-        whileTrue {
-            intakeCubes()
-            println("Cube intake should be running")
-        }
-    };
     { secondaryJoystick.getRawButton(Operator.CUBEOUTTAKE_BUTTON) }.watch {
         whileTrue {
             println("Cube outtake should be running")
@@ -60,11 +55,21 @@ fun CoroutineScope.initControls() {
             println("Dumping bed")
             dumpBed()
         }
-    };
-    { primaryController.backButton }.watch {
-        whileTrue {
-            println("Intaking cubes using the controller!")
-            intakeCubes()
-        }
-    };
+    }
+
+    if (controlMode == ControlMode.JOYSTICK) {
+        { primaryJoystick.getRawButton(Operator.CUBEINTAKE_BUTTON) }.watch {
+            whileTrue {
+                println("Cube intake should be running")
+                intakeCubes()
+            }
+        };
+    } else if (controlMode == ControlMode.CONTROLLER) {
+        { primaryController.getBumper(GenericHID.Hand.kRight) }.watch {
+            whileTrue {
+                println("Intaking cubes using the controller!")
+                intakeCubes()
+            }
+        };
+    }
 }

@@ -48,10 +48,12 @@ suspend fun teleopArmControl() = doTask {
             if (Controls.tubintakeArmUpButton && !intake.armRunning) {
                 println("Going up")
                 intake.runArmToPosition(ARM_UP_TICKS)
+                println(intake.position)
             }
 
             if (Controls.tubintakeArmDownButton && !intake.armRunning) {
                 println("Going down")
+                println(intake.position)
                 intake.runArmToPosition(ARM_DOWN_TICKS)
             }
         }
