@@ -11,8 +11,11 @@ import org.sert2521.bunnybots2019.beddumper.dumpBed
 import org.sert2521.sertain.coroutines.watch
 import org.sert2521.bunnybots2019.cubeintake.intakeCubes
 import org.sert2521.bunnybots2019.cubeintake.outtakeCubes
+import org.sert2521.bunnybots2019.tubintake.ARM_DOWN_TICKS
+import org.sert2521.bunnybots2019.tubintake.ARM_UP_TICKS
 import org.sert2521.bunnybots2019.tubintake.intakeTub
 import org.sert2521.bunnybots2019.tubintake.outtakeTub
+import org.sert2521.bunnybots2019.tubintake.runArmTo
 
 enum class ControlMode {
     CONTROLLER, JOYSTICK
@@ -54,6 +57,16 @@ fun CoroutineScope.initControls() {
         whileTrue {
             println("Dumping bed")
             dumpBed()
+        }
+    };
+    { secondaryJoystick.getRawButton(Operator.TUBINTAKE_ARM_UP_BUTTON) }.watch {
+        whenTrue {
+            runArmTo(ARM_UP_TICKS)
+        }
+    };
+    { secondaryJoystick.getRawButton(Operator.TUBINTAKE_ARM_DOWN_BUTTON) }.watch {
+        whenTrue {
+            runArmTo(ARM_DOWN_TICKS)
         }
     }
 
