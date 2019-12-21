@@ -11,8 +11,6 @@ import org.sert2521.bunnybots2019.cubeintake.outtakeCubes
 import org.sert2521.sertain.coroutines.watch
 import org.sert2521.bunnybots2019.tubintake.tubIntake
 import org.sert2521.bunnybots2019.tubintake.tubOuttake
-import org.sert2521.bunnybots2019.drivetrain.driveDistance
-import org.sert2521.sertain.coroutines.watch
 
 enum class ControlMode {
     CONTROLLER, JOYSTICK
