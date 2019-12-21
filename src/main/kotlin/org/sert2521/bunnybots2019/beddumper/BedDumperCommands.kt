@@ -8,7 +8,7 @@ suspend fun dumpBed() = doTask {
     val beddumper = use<BedDumper>()
     action {
         try {
-            beddumper.setServoAngle(30.0)
+//            beddumper.setServoAngle(30.0)
             onTick {
                 beddumper.spinBedDumper()
                 println("Spinning Bed Dumper")
@@ -16,7 +16,7 @@ suspend fun dumpBed() = doTask {
         } finally {
             println("Bed Dumper should stop")
             beddumper.stopSpin()
-            beddumper.setServoAngle(360.0)
+//            beddumper.setServoAngle(360.0)
         }
     }
 }
