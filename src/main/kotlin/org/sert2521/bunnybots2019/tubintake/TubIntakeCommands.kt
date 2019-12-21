@@ -37,7 +37,7 @@ suspend fun outtakeTub() = doTask {
     }
 }
 
-suspend fun teleopIntakeControl() = doTask {
+suspend fun teleopArmControl() = doTask {
     val intake = use<TubIntake>()
     action {
         onTick {
