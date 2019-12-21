@@ -10,18 +10,20 @@ class Drivetrain : Subsystem("Drivetrain", ::controlDrivetrain) {
         brakeMode = true
         sensorInverted = true
         pidf {
-            kp = 0.0
+            kp = 0.5
             ki = 0.0
             kd = 0.0
+            maxOutput = 1.0
         }
     }
     private val left = MotorController(MotorControllers.leftFront, MotorControllers.leftBack) {
         brakeMode = true
         sensorInverted = true
         pidf {
-            kp = 0.0
+            kp = 0.5
             ki = 0.0
             kd = 0.0
+            maxOutput = 1.0
         }
     }
 
@@ -40,6 +42,7 @@ class Drivetrain : Subsystem("Drivetrain", ::controlDrivetrain) {
     }
 
     fun tankDrive(rightSpeed: Double, leftSpeed: Double) {
+        println("Position: ${position}")
         right.setPercentOutput(rightSpeed)
         left.setPercentOutput(leftSpeed)
     }

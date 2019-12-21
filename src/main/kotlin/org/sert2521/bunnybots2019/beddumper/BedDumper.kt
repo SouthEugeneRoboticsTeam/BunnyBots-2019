@@ -20,9 +20,9 @@ class BedDumper : Subsystem("BedDumper") {
         val servo2 = Servo(1)
 
         suspend fun setServoAngle(angle: Double) {
-                servo1.angle = angle
-                servo2.angle = angle
-                delay(500)
+//                servo1.angle = angle
+//                servo2.angle = angle
+//                delay(500)
         }
 
         private var conveyorRunning = false
