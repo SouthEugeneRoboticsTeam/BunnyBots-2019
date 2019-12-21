@@ -12,6 +12,7 @@ import org.sert2521.sertain.events.onTick
 import org.sert2521.sertain.motors.EncoderTicks
 import org.sert2521.sertain.subsystems.doTask
 import org.sert2521.sertain.subsystems.use
+import org.sert2521.sertain.units.Angular
 import org.sert2521.sertain.units.Chronic
 import org.sert2521.sertain.units.CompositeUnit
 import org.sert2521.sertain.units.CompositeUnitType
@@ -67,9 +68,9 @@ suspend fun driveCurve(speed: Double, distance: Double) = doTask {
     }
 }
 
-suspend fun driveCurve(
-    speed: MetricValue<CompositeUnitType<Per, Linear, Chronic>, CompositeUnit<Per, Linear, Chronic>>,
-    distance: MetricValue<Linear, MetricUnit<Linear>>
+suspend fun <VU : CompositeUnit<Per, Linear, Chronic>, DU : MetricUnit<Linear>> driveCurve(
+    speed: MetricValue<CompositeUnitType<Per, Linear, Chronic>, VU>,
+    distance: MetricValue<Linear, DU>
 ) = doTask {
     val drivetrain = use<Drivetrain>()
     action {
