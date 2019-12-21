@@ -6,11 +6,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.CoroutineScope
 import org.sert2521.bunnybots2019.Operator
+import org.sert2521.bunnybots2019.beddumper.dumpBed
+import org.sert2521.sertain.coroutines.watch
 import org.sert2521.bunnybots2019.cubeintake.intakeCubes
 import org.sert2521.bunnybots2019.cubeintake.outtakeCubes
-import org.sert2521.sertain.coroutines.watch
-import org.sert2521.bunnybots2019.tubintake.tubIntake
-import org.sert2521.bunnybots2019.tubintake.tubOuttake
+import org.sert2521.bunnybots2019.tubintake.intakeTub
+import org.sert2521.bunnybots2019.tubintake.outtakeTub
 
 enum class ControlMode {
     CONTROLLER, JOYSTICK
@@ -27,7 +28,7 @@ val primaryJoystick by lazy { Joystick(Operator.PRIMARY_STICK) }
 val secondaryJoystick by lazy { Joystick(Operator.SECONDARY_STICK) }
 val primaryController by lazy { XboxController(Operator.PRIMARY_CONTROLLER) }
 
-fun CoroutineScope.getInputs() {
+fun CoroutineScope.initControls() {
     SmartDashboard.putData("Control Mode", controlModeChooser);
 
     { primaryJoystick.getRawButton(Operator.CUBEINTAKE_BUTTON) }.watch {
@@ -43,18 +44,24 @@ fun CoroutineScope.getInputs() {
     { secondaryJoystick.getRawButton(Operator.TUBINTAKE_IN_BUTTON) }.watch {
         whileTrue {
             println("Intake should be spinning in")
-            tubIntake()
+            intakeTub()
         }
     };
     { secondaryJoystick.getRawButton(Operator.TUBINTAKE_OUT_BUTTON) }.watch {
         whileTrue {
             println("Outtake should be running")
-            tubOuttake()
+            outtakeTub()
         }
     };
     { primaryController.backButton }.watch {
         whileTrue {
             intakeCubes()
         }
+    };
+    { primaryJoystick.getRawButton(14) }.watch {
+         whileTrue {
+             println("Dumping bed")
+             dumpBed()
+         }
     }
 }
